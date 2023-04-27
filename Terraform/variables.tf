@@ -4,18 +4,8 @@ variable "location" {
 }
 
 
-variable "prefix" {
+variable "rg_name" {
   type    = string
-  default = "oow-aks-zero-trust"
-}
-
-variable "agent_ip_address" {
-  type    = string
-  default = ""
-}
-
-variable "ip_address_space_size" {
-  type    = number
-  default = 20
+  default = "oow-aks-zero-trust-demo"
 }
 

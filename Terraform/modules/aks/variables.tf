@@ -126,10 +126,7 @@ variable aksOutboundTrafficType {
   type=string
   default="userDefinedRouting"
 } 
-variable keyVaultKmsByoKeyId {
-  type=string
-  default=module.key_vault.key_vault_id
-} 
+
 variable keyVaultKmsByoRG {
   type=string
   default="oow-aks-zero-trust-demo"
@@ -170,6 +167,7 @@ variable enableSysLog {
   type=bool
   default=true
 }
-variable "key_vault_additional_access" {
-  type = list(string)
+variable key_vault_id{
+  type=string
+  default=""
 }

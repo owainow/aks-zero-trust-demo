@@ -4,5 +4,5 @@ variable location {
 } 
 variable resourceGroupName {
   type=string
-  default="oow-aks-zerotrust"
+  default="oow-aks-zero-trust-demo"
 } 

@@ -9,15 +9,11 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-resource "azurerm_resource_group" "rg" {
-  name = var.resourceGroupName
-  location = var.location
-}
 
 resource "azurerm_key_vault" "etcd_key_vault" {
-  name                        = "oow-aks-zerotrust-etcd-key-vault"
-  location                    = azurerm_resource_group.rg.location
-  resource_group_name         = azurerm_resource_group.rg.name
+  name                        = "oow-aks-etcd-kv"
+  location                    = var.location
+  resource_group_name         = var.resourceGroupName
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
@@ -30,21 +26,21 @@ resource "azurerm_key_vault" "etcd_key_vault" {
     object_id = data.azurerm_client_config.current.object_id
 
     key_permissions = [
-      "Get",
+    "Get", "List", "Delete", "Create", "Import", "Update", "Backup", "Restore"
     ]
 
     secret_permissions = [
-      "Get",
+    "Get", "Set", "List", "Delete"
     ]
 
     storage_permissions = [
-      "Get",
+      "Get", "Set", "List", "Delete", "RegenerateKey"
     ]
   }
 }
 
 resource "azurerm_key_vault_key" "etcd_generated_key" {
-  name         = "etcd_generated_key"
+  name         = "etcd-generated-key"
   key_vault_id = azurerm_key_vault.etcd_key_vault.id
   key_type     = "RSA"
   key_size     = 2048

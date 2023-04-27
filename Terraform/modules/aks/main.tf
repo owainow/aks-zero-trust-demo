@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+    }
+  }
+}
+
 data "http" "aksc_release" {
   url = "https://github.com/Azure/AKS-Construction/releases/download/0.9.13b/main.json"
   request_headers = {
@@ -6,17 +14,18 @@ data "http" "aksc_release" {
   }
 }
 
-data "azurerm_client_config" "current" {}
 
-resource "azurerm_resource_group" "rg" {
-  name = var.resourceGroupName
-  location = var.location
+
+locals {
+keyVaultKmsByoKeyId= var.key_vault_id
 }
 
+data "azurerm_client_config" "current" {}
+
+
 resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
-  depends_on = [ azurerm_key_vault.etcd_key_vault ]
   name = "AKS-C"
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = var.resourceGroupName
   deployment_mode = "Incremental"
   template_content = data.http.aksc_release.response_body
   parameters_content = jsonencode({
@@ -40,7 +49,7 @@ resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
     acrPushRolePrincipalId = {value=data.azurerm_client_config.current.object_id}
     enableACRTrustPolicy = {value=var.enableACRTrustPolicy}
     azureFirewalls = {value=var.azureFirewalls}
-    azureFirewallsSku = {value=var.azureFirewallsSku}
+    azureFirewallSku = {value=var.azureFirewallsSku}
     privateLinks = {value=var.privateLinks}
     keyVaultIPAllowlist = {value=var.keyVaultIPAllowlist}
     omsagent = {value=var.omsagent}
@@ -52,7 +61,7 @@ resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
     maxPods = {value=var.maxPods}
     enablePrivateCluster = {value=var.enablePrivateCluster}
     aksOutboundTrafficType = {value=var.aksOutboundTrafficType}
-    keyVaultKmsByoKeyId = {value=var.keyVaultKmsByoKeyId}
+    keyVaultKmsByoKeyId = {value=local.keyVaultKmsByoKeyId}
     keyVaultKmsByoRG = {value=var.keyVaultKmsByoRG}
     keyVaultAksCSI = {value=var.keyVaultAksCSI}
     keyVaultCreate = {value=var.keyVaultCreate}
@@ -73,28 +82,9 @@ locals {
 
 data "azurerm_key_vault" "aks" {
   name                = local.arm_outputs.keyVaultName.value
-  resource_group_name = var.resource_group_name
+  resource_group_name = var.resourceGroupName
 }
 
-resource "azurerm_key_vault_access_policy" "aks" {
-  depends_on = [azurerm_key_vault.etcd_key_vault]
-  for_each     = { for i, item in var.key_vault_additional_access : i => item }
-  key_vault_id = data.azurerm_key_vault.aks.id
-  tenant_id    = data.azurerm_client_config.current.tenant_id
-  object_id    = each.value
-
-  key_permissions = [
-    "Get",
-  ]
-
-  secret_permissions = [
-    "Get",
-  ]
-
-  certificate_permissions = [
-    "Get",
-  ]
-}
 
 provider "kubernetes" {
   host                   = module.aks.host

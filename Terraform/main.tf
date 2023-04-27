@@ -3,8 +3,15 @@ terraform {
     azurerm = {
       source = "hashicorp/azurerm"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+    }
   }
   backend "azurerm" {
+      resource_group_name  = "tfstate"
+      storage_account_name = "tfstate31858"
+      container_name       = "tfstate"
+      key                  = "terraform.tfstate"
   }
 }
 
@@ -23,13 +30,28 @@ locals {
   
 }
 
-module "etcd_key_vault" {
-  source = "./key_vault"
+resource "azurerm_resource_group" "rg" {
+  name     = var.rg_name
+  location = var.location
+}
+
+
+module "key_vault" {
+  depends_on = [azurerm_resource_group.rg]
+  source = "./modules/key_vault"
 
 }
 
 module "aks" {
-  source = "./aks"
 
-  key_vault_address = module.etcd_key_vault.key_vault_address
+  source = "./modules/aks"
+
+  key_vault_id = module.key_vault.key_vault_id
+}
+
+module "front_door" {
+
+  source = "./modules/front_door"
+
+  aks_managed_rg = module.aks.aksManagedRgName
 }

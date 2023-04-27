@@ -10,15 +10,10 @@ resource "random_id" "front_door_endpoint_name" {
   byte_length = 8
 }
 
-resource "azurerm_resource_group" "rg" {
-  name = var.resourceGroupName
-  location = var.location
-}
 
 resource "azurerm_cdn_frontdoor_profile" "my_front_door" {
-  depends_on          = [kubectl_manifest.nginx_pls]
   name                = local.front_door_profile_name
-  resource_group_name = azurerm_resource_group.rg.name
+  resource_group_name = var.resourceGroupName
   sku_name            = "Premium_AzureFrontDoor"
 }
 
@@ -46,13 +41,11 @@ resource "azurerm_cdn_frontdoor_origin_group" "my_origin_group" {
 }
 
 data "azurerm_private_link_service" "nginx-ingress" {
-  depends_on                    = [kubectl_manifest.nginx_pls]
   name                          = "aks-pls"
-  resource_group_name           = "oow-aks-zerotrust-managed-cluster-resources"
+  resource_group_name           = var.aks_managed_rg
 }
 
 resource "azurerm_cdn_frontdoor_origin" "nginx-ingress-origin" {
-  depends_on                    = [kubectl_manifest.nginx_pls]
   name                          = local.front_door_origin_name
   cdn_frontdoor_origin_group_id = azurerm_cdn_frontdoor_origin_group.my_origin_group.id
 
@@ -67,7 +60,7 @@ resource "azurerm_cdn_frontdoor_origin" "nginx-ingress-origin" {
 
   private_link {
     request_message        = "Request access"
-    location               = azurerm_resource_group.rg.location
+    location               = var.resourceGroupName
     private_link_target_id = data.azurerm_private_link_service.nginx-ingress.id
   }
 }
