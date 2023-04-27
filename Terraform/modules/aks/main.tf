@@ -14,6 +14,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
+  depends_on = [ azurerm_key_vault.etcd_key_vault ]
   name = "AKS-C"
   resource_group_name = azurerm_resource_group.rg.name
   deployment_mode = "Incremental"
@@ -76,6 +77,7 @@ data "azurerm_key_vault" "aks" {
 }
 
 resource "azurerm_key_vault_access_policy" "aks" {
+  depends_on = [azurerm_key_vault.etcd_key_vault]
   for_each     = { for i, item in var.key_vault_additional_access : i => item }
   key_vault_id = data.azurerm_key_vault.aks.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
@@ -92,4 +94,16 @@ resource "azurerm_key_vault_access_policy" "aks" {
   certificate_permissions = [
     "Get",
   ]
+}
+
+provider "kubernetes" {
+  host                   = module.aks.host
+  client_certificate     = base64decode(module.aks.client_certificate)
+  client_key             = base64decode(module.aks.client_key)
+  cluster_ca_certificate = base64decode(module.aks.cluster_ca_certificate)
+}
+
+resource "kubectl_manifest" "nginx-pls" {
+  depends_on = [azurerm_resource_group_template_deployment.aksc_deploy  ]
+    yaml_body = file("${path.module}/pls-nginx.yaml")
 }

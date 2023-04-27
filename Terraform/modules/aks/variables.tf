@@ -128,7 +128,7 @@ variable aksOutboundTrafficType {
 } 
 variable keyVaultKmsByoKeyId {
   type=string
-  default="https://YOURVAULTNAME.vault.azure.net/keys/YOURKEYNAME/KEYVERSIONSTRING"
+  default=module.key_vault.key_vault_id
 } 
 variable keyVaultKmsByoRG {
   type=string
@@ -169,4 +169,7 @@ variable workloadIdentity {
 variable enableSysLog {
   type=bool
   default=true
+}
+variable "key_vault_additional_access" {
+  type = list(string)
 }
