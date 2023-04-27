@@ -1,11 +1,3 @@
-terraform {
-  required_providers {
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-    }
-  }
-}
-
 data "http" "aksc_release" {
   url = "https://github.com/Azure/AKS-Construction/releases/download/0.9.13b/main.json"
   request_headers = {
@@ -13,7 +5,6 @@ data "http" "aksc_release" {
     User-Agent = "request module"
   }
 }
-
 
 
 locals {
@@ -81,19 +72,6 @@ locals {
 }
 
 data "azurerm_key_vault" "aks" {
-  name                = local.arm_outputs.keyVaultName.value
+  name                = var.resourceName
   resource_group_name = var.resourceGroupName
-}
-
-
-provider "kubernetes" {
-  host                   = module.aks.host
-  client_certificate     = base64decode(module.aks.client_certificate)
-  client_key             = base64decode(module.aks.client_key)
-  cluster_ca_certificate = base64decode(module.aks.cluster_ca_certificate)
-}
-
-resource "kubectl_manifest" "nginx-pls" {
-  depends_on = [azurerm_resource_group_template_deployment.aksc_deploy  ]
-    yaml_body = file("${path.module}/pls-nginx.yaml")
 }

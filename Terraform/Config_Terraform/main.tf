@@ -3,8 +3,9 @@ terraform {
     azurerm = {
       source = "hashicorp/azurerm"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
+
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
     }
   }
   backend "azurerm" {
@@ -23,6 +24,15 @@ provider "azurerm" {
   }
 }
 
+provider "kubernetes" {
+  host                   = module.aks.host
+  client_certificate     = base64decode(module.aks.client_certificate)
+  client_key             = base64decode(module.aks.client_key)
+  cluster_ca_certificate = base64decode(module.aks.cluster_ca_certificate)
+}
+
+
+
 data "azurerm_client_config" "current" {
 }
 
@@ -37,21 +47,25 @@ resource "azurerm_resource_group" "rg" {
 
 
 module "key_vault" {
-  depends_on = [azurerm_resource_group.rg]
   source = "./modules/key_vault"
+
+  resourceGroupName = azurerm_resource_group.rg.name
 
 }
 
 module "aks" {
-
   source = "./modules/aks"
 
   key_vault_id = module.key_vault.key_vault_id
+  resourceGroupName = azurerm_resource_group.rg.name
 }
 
-module "front_door" {
 
+
+module "front_door" {
+  depends_on = [module.aks]
   source = "./modules/front_door"
 
   aks_managed_rg = module.aks.aksManagedRgName
+  resourceGroupName = azurerm_resource_group.rg.name
 }

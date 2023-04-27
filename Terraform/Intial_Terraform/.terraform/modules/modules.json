@@ -1,0 +1,1 @@
+{"Modules":[{"Key":"key_vault","Source":"./modules/key_vault","Dir":""},{"Key":"","Source":"","Dir":"."},{"Key":"aks","Source":"./modules/aks","Dir":""},{"Key":"front_door","Source":"./modules/front_door","Dir":""}]}

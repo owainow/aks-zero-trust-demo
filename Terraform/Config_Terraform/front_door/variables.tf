@@ -13,3 +13,8 @@ variable nginx-lb-ip {
 variable aks_managed_rg {
   type = string
 }
+
+variable aksclustername {
+  type = string
+  default ="oow-aks-zero-trust"
+}
