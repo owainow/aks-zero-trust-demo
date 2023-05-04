@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /master/Terraform/Intial_Terrraform
+        working-directory: ./Terraform/Intial_Terrraform
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
