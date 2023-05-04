@@ -862,7 +862,7 @@
     },
     "automatedDeployment": {
       "type": "bool",
-      "defaultValue": false,
+      "defaultValue": true,
       "metadata": {
         "description": "If automated deployment, for the 3 automated user assignments, set Principal Type on each to \"ServicePrincipal\" rarter than \"User\""
       }
