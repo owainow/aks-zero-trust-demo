@@ -5,7 +5,7 @@ resource "random_string" "default" {
 }
 
 resource "azurerm_key_vault" "etcd_key_vault" {
-  name                        = "oow-aks-etcd-kv-"+"${random_string.default.result}"
+  name                        = "oow-aks-etcd-kv-${random_string.default.result}"
   location                    = var.location
   resource_group_name         = var.resourceGroupName
   enabled_for_disk_encryption = true
