@@ -30,7 +30,7 @@ jobs:
       - name: Terraform Init
         id: init
         env:
-         tf_actions_working_dir: ./master/Terraform/Intial_Terrraform
+         tf_actions_working_dir: /master/Terraform/Intial_Terrraform
          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
@@ -43,7 +43,7 @@ jobs:
       # Run Terraform Apply with Auto Approve
       - name: Terraform Apply
         env:
-          tf_actions_working_dir: ./master/Terraform/Intial_Terrraform
+          tf_actions_working_dir: /master/Terraform/Intial_Terrraform
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
