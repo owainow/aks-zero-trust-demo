@@ -1157,7 +1157,7 @@
       "name": "[guid(resourceId('Microsoft.ContainerService/managedClusters', format('aks-{0}', parameters('resourceName'))), 'Acr', variables('AcrPushRole'))]",
       "properties": {
         "roleDefinitionId": "[variables('AcrPushRole')]",
-        "principalType": "[if(parameters('automatedDeployment'), 'ServicePrincipal', 'User')]",
+        "principalType": "[if(parameters('automatedDeployment'), 'ServicePrincipal', 'ServicePrincipal')]",
         "principalId": "[parameters('acrPushRolePrincipalId')]"
       },
       "dependsOn": [
@@ -1337,7 +1337,7 @@
       "name": "[guid(resourceId('Microsoft.ContainerService/managedClusters', format('aks-{0}', parameters('resourceName'))), 'aksadmin', variables('buildInAKSRBACClusterAdmin'))]",
       "properties": {
         "roleDefinitionId": "[variables('buildInAKSRBACClusterAdmin')]",
-        "principalType": "[if(parameters('automatedDeployment'), 'ServicePrincipal', 'User')]",
+        "principalType": "[if(parameters('automatedDeployment'), 'ServicePrincipal', 'ServicePrincipal')]",
         "principalId": "[parameters('adminPrincipalId')]"
       },
       "dependsOn": [
