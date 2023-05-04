@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Intial_Terrraform
+        working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/master/Terraform/Intial_Terrraform
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
