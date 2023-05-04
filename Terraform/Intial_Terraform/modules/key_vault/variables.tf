@@ -6,3 +6,7 @@ variable resourceGroupName {
   type=string
   default="oow-aks-zero-trust-demo"
 } 
+variable vaultPrefix {
+  type=string
+  default="oow-aks-etcd-kv-"
+} 
