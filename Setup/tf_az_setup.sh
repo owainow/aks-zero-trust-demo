@@ -30,7 +30,7 @@ $storageacckey=$(az storage account keys list --resource-group $rgname --account
 az storage container create --name $containername --account-name $strname --account-key $storageacckey
 
 # Creates Service Principal for TF to use and gives access at root. 
-$spid = az ad sp create-for-rbac -n $spname --role Contributor --scopes "/" | convertfrom-json
+$spid = az ad sp create-for-rbac -n $spname --role Contributor --scopes  /subscriptions/$mansub/resourceGroups/$rgname
 
 ########################################
 # Information to setup GitHub Secrets and Terraform backend configuration is output by the script below. 
