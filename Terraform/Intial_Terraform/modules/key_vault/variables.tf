@@ -8,5 +8,5 @@ variable resourceGroupName {
 } 
 variable vaultPrefix {
   type=string
-  default="zt-aks-etcd-kv-"
+  default="aks-etcd-kv-"
 } 
