@@ -4,8 +4,12 @@ resource "random_string" "default" {
   length = 5
 }
 
+locals {
+  vaultName = "${var.vaultPrefix}.${random_string.default.result}" 
+}
+
 resource "azurerm_key_vault" "etcd_key_vault" {
-  name                        = "${var.vaultPrefix}.${random_string.default.result}" 
+  name                        = local.vaultName
   location                    = var.location
   resource_group_name         = var.resourceGroupName
   enabled_for_disk_encryption = true
