@@ -5,7 +5,7 @@ resource "random_id" "key_vault" {
 }
 
 locals {
-  vaultName = "${var.vaultPrefix}${lower(random_id.storage_account.hex)}" 
+  vaultName = "${var.vaultPrefix}${lower(random_id.key_vault.hex)}" 
 }
 
 resource "azurerm_key_vault" "etcd_key_vault" {
