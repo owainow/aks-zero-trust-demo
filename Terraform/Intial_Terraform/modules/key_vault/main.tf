@@ -9,7 +9,6 @@ locals {
 }
 
 resource "azurerm_key_vault" "etcd_key_vault" {
-  depends_on = [random_integer.suffix]
   name                        = local.vaultName
   location                    = var.location
   resource_group_name         = var.resourceGroupName
