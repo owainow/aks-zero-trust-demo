@@ -1,11 +1,12 @@
 data "azurerm_client_config" "current" {}
 
-resource "random_string" "default" {
-  length = 5
+resource "random_integer" "suffix" {
+  min = 1000
+  max = 9999
 }
 
 locals {
-  vaultName = "${var.vaultPrefix}.${random_string.default.result}" 
+  vaultName = "${var.vaultPrefix}.${random_integer.suffix.result}" 
 }
 
 resource "azurerm_key_vault" "etcd_key_vault" {
