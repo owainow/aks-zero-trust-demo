@@ -1,11 +1,11 @@
 data "azurerm_client_config" "current" {}
 
 resource "random_string" "default" {
-  length = 7
+  length = 5
 }
 
 resource "azurerm_key_vault" "etcd_key_vault" {
-  name                        = "${var.vaultPrefix}.${random_string.default.result}"
+  name                        = "${var.vaultPrefix}.${random_string.default.result}" "${var.domain}.${var.hosted_zone}"
   location                    = var.location
   resource_group_name         = var.resourceGroupName
   enabled_for_disk_encryption = true
