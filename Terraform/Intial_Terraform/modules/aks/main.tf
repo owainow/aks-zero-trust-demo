@@ -67,7 +67,7 @@ data "azurerm_key_vault" "aks" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "np1" {
   name                  = "fipsnp01"
-  kubernetes_cluster_id = local.arm_outputs.aksClusterId.value
+  kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
   vm_size               = var.agentVMSize
   node_count            = 3
   enable_host_encryption = true
@@ -81,7 +81,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "np1" {
 
 resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   name                  = "cfdnp01"
-  kubernetes_cluster_id = local.arm_outputs.aksClusterId.value
+  kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
   vm_size               = "Standard_DC2s_v3"
   node_count            = 1
   enable_host_encryption = true
