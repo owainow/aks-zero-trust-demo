@@ -6,6 +6,10 @@
  
 az login
 
+## Required for confidential compute & FIPS nodepool
+az feature register --name EncryptionAtHost --namespace Microsoft.Compute 
+az provider register -n Microsoft.Compute
+
 ########################################
 # Set the below
 ########################################
