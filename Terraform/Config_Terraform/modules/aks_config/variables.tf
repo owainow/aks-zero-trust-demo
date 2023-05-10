@@ -16,5 +16,5 @@ variable aks_managed_rg {
 
 variable aksclustername {
   type = string
-  default ="oow-aks-zero-trust"
+  default ="aks-oow-zerotrust"
 }
