@@ -34,7 +34,6 @@ locals {
 
 data "azurerm_resource_group" "rg" {
   name     = var.rg_name
-  location = var.location
 }
 
 
@@ -48,5 +47,5 @@ depends_on = [module.aks_config]
   source = "./modules/front_door"
 
   aks_managed_rg = var.aks_managed_rg
-  resourceGroupName = azurerm_resource_group.rg.name
+  resourceGroupName = data.azurerm_resource_group.rg.name
 }
