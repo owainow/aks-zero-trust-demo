@@ -25,7 +25,7 @@ resource "azurerm_container_group" "self_hosted_runners" {
   ip_address_type     = "Private"
   dns_name_label      = "aci-label"
   os_type             = "Linux"
-  subnet_ids = azurerm_subnet.runners_subnet.id
+  subnet_ids = [azurerm_subnet.runners_subnet.id]
 
   container {
     name   = "runner"
