@@ -29,36 +29,11 @@ resource "azurerm_container_group" "self_hosted_runners" {
 
   container {
     name   = "runner"
-    image  = "mcr.microsoft.com/oss/nginx/nginx:1.9.15-alpine"
+    image  = "owain.azurecr.io/selfhostedrunner:latest"
     cpu    = "1"
     memory = "1.5"
 
-    environment_variables = [
-      {
-        name  = "RUNNER_NAME"
-        value = "runner-1"
-      },
-      {
-        name  = "GH_PAT"
-        value = var.GH_PAT
-      },
-    
-      {
-        name  = "GH_REPO_URL"
-        value = var.GH_REPO_URL
-      },
-      {
-        name  = "RUNNER_WORK_DIRECTORY"
-        value = "_work"
-      },
-      {
-        name  = "RUNNER_GROUP"
-        value = "runners"
-      },
-      {
-        name  = "RUNNER_ALLOW_RUNASROOT"
-        value = "1"
-      },
-    ]
+    environment_variables = [ "GH_REPO_URL = ${var.GH_REPO_URL}", "GH_PAT= ${var.GH_PAT}" ]
+      
 }
 }

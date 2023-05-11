@@ -1,0 +1,7 @@
+FROM ubuntu:20.04
+RUN \
+apt-get update -y && \
+apt-get install build-essential -y && \
+DEBIAN_FRONTEND=noninteractive apt-get install git -y && \
+rm -rf /var/lib/apt/lists/*
+ENTRYPOINT "scripts/configureLinuxRunner.sh"

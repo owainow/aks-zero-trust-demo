@@ -11,11 +11,3 @@ variable vnetName {
     type = string
     default = "vnet-oow-zerotrust"
 }
-
-variable GH_PAT {
-    default = ""
-}
-
-variable GH_REPO_URL {
-    default = ""
-}
