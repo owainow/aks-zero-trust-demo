@@ -60,9 +60,5 @@ resource "azurerm_container_group" "self_hosted_runners" {
         value = "1"
       },
     ]
-
-  tags = {
-    environment = "testing"
-  }
 }
 }
