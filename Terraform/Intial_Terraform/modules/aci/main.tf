@@ -36,7 +36,7 @@ resource "azurerm_container_group" "self_hosted_runners" {
     environment_variables = [
       {
         name  = "RUNNER_NAME"
-        value = "runner-${count.index}"
+        value = "runner-1"
       },
       {
         name  = "GH_PAT"
