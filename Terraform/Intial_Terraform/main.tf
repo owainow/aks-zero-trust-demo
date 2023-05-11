@@ -45,6 +45,13 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
+resource "azurerm_resource_group" "rg" {
+  name     = var.rg_name
+  location = var.location
+}
+
+
+
 
 module "key_vault" {
   source = "./modules/key_vault"
@@ -61,4 +68,13 @@ module "aks" {
   key_vault_key = module.key_vault.key_vault_key
   resourceGroupName = azurerm_resource_group.rg.name
 }
+
+module "aci" {
+  depends_on = [module.aks]
+  source = "./modules/aci"
+  
+  resourceGroupName = azurerm_resource_group.rg.name
+}
+
+
 
