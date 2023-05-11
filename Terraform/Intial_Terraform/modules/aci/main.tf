@@ -33,7 +33,7 @@ resource "azurerm_container_group" "self_hosted_runners" {
     cpu    = "1"
     memory = "1.5"
 
-    environment_variables = [ ["GH_REPO_URL", var.GH_REPO_URL], ["GH_PAT", var.GH_PAT]]
+    environment_variables = {"GH_REPO_URL":var.GH_REPO_URL, "GH_PAT":var.GH_PAT}
       
 }
 }
