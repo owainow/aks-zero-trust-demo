@@ -23,7 +23,6 @@ resource "azurerm_container_group" "self_hosted_runners" {
   location            = var.location
   resource_group_name = var.resourceGroupName
   ip_address_type     = "Private"
-  dns_name_label      = "aci-label"
   os_type             = "Linux"
   subnet_ids = [azurerm_subnet.runners_subnet.id]
 
