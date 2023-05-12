@@ -23,7 +23,7 @@ resource "azurerm_container_group" "self_hosted_runners" {
   location            = var.location
   resource_group_name = var.resourceGroupName
   ip_address_type     = "Private"
-  ip_address          = "10.240.10.1"
+
   os_type             = "Linux"
   subnet_ids = [azurerm_subnet.runners_subnet.id]
 
@@ -34,6 +34,12 @@ resource "azurerm_container_group" "self_hosted_runners" {
     memory = "1.5"
 
     environment_variables = {"GH_REPO_URL":var.GH_REPO_URL, "GH_PAT":var.GH_PAT}
+
+    ports {
+      port     = 443
+      protocol = "TCP"
+    }
       
 }
+
 }
