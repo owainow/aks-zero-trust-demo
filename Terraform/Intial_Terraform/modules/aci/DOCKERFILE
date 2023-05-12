@@ -6,4 +6,5 @@ apt-get install curl -y && \
 apt-get install tar && \
 DEBIAN_FRONTEND=noninteractive apt-get install git -y
 RUN git clone https://github.com/owainow/aks-zero-trust-demo.git
-ENTRYPOINT ["bash", "/aks-zero-trust-demo/Terraform/Intial_Terraform/modules/aci/scripts/configureLinuxRunner.sh"]
+RUN chmod +x /aks-zero-trust-demo/Terraform/Intial_Terraform/modules/aci/scripts/configureLinuxRunner.sh
+ENTRYPOINT /aks-zero-trust-demo/Terraform/Intial_Terraform/modules/aci/scripts/configureLinuxRunner.sh
