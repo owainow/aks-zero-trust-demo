@@ -9,7 +9,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+
   Terraform_Provision:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -31,6 +31,15 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.4.5
+      
+      - name: Self-hosted runner registration token provider
+        uses: roncsak/getRunnerToken@v1.0.2
+        with:
+          # The scope of the registration token
+          scope: default
+          # GitHub or PAT token
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
           
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
@@ -54,7 +63,7 @@ jobs:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          TF_VAR_GH_PAT: ${{ secrets.TF_VAR_GH_PAT }}
+          TF_VAR_GH_PAT: ${{ steps.runnerRegistration.outputs.token }}
           TF_VAR_GH_REPO_URL: ${{ secrets.TF_VAR_GH_REPO_URL }}
         run: terraform apply -auto-approve
 
