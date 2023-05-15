@@ -37,6 +37,7 @@ jobs:
         with:
           # GitHub or PAT token
           token: ${{ secrets.GITHUB_TOKEN }}
+          scope: organization
           
           
       # Run Terraform Init
