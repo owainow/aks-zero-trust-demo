@@ -35,8 +35,6 @@ jobs:
       - name: Self-hosted runner registration token provider
         uses: roncsak/getRunnerToken@v1.0.2
         with:
-          # The scope of the registration token
-          scope: automatic
           # GitHub or PAT token
           token: ${{ secrets.GITHUB_TOKEN }}
           
