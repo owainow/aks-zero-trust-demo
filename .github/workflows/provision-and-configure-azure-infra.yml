@@ -36,7 +36,7 @@ jobs:
         uses: roncsak/getRunnerToken@v1.0.2
         with:
           # The scope of the registration token
-          scope: default
+          scope: automatic
           # GitHub or PAT token
           token: ${{ secrets.GITHUB_TOKEN }}
           
