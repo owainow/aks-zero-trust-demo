@@ -1,6 +1,6 @@
-output "GH Repo URL" {
+output "GH_Repo_URL" {
   value = var.gh_repo_url
 }
-output "GH PAT" {
+output "GH_PAT" {
   value = var.gh_pat
 }
