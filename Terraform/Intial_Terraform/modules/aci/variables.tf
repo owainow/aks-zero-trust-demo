@@ -12,10 +12,10 @@ variable vnetName {
     default = "vnet-oow-zerotrust"
 }
 
-variable GH_PAT {
+variable gh_pat {
     default = ""
 }
 
-variable GH_REPO_URL {
+variable gh_repo_url {
     default = ""
 }
