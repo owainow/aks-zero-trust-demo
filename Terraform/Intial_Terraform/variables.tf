@@ -8,3 +8,10 @@ variable "rg_name" {
   default = "oow-aks-zero-trust-demo"
 }
 
+variable gh_pat {
+    default = ""
+}
+
+variable gh_repo_url {
+    default = ""
+}
