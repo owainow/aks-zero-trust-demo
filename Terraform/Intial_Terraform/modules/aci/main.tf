@@ -41,5 +41,11 @@ resource "azurerm_container_group" "self_hosted_runners" {
     }
       
 }
+output "GH Repo URL" {
+  value = var.GH_REPO_URL
+}
+output "GH PAT" {
+  value = var.GH_PAT
+}
 
 }
