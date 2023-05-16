@@ -33,7 +33,7 @@ resource "azurerm_container_group" "self_hosted_runners" {
     cpu    = "1"
     memory = "1.5"
 
-    environment_variables = {"GH_REPO_URL":var.GH_REPO_URL, "GH_PAT":var.GH_PAT}
+    environment_variables = {"GH_REPO_URL":var.gh_repo_url, "GH_PAT":var.gh_pat}
 
     ports {
       port     = 443
@@ -42,10 +42,10 @@ resource "azurerm_container_group" "self_hosted_runners" {
       
 }
 output "GH Repo URL" {
-  value = var.GH_REPO_URL
+  value = var.gh_repo_url
 }
 output "GH PAT" {
-  value = var.GH_PAT
+  value = var.gh_pat
 }
 
 }
