@@ -72,6 +72,16 @@ jobs:
     # The type of runner that the job will run on
     runs-on: self-hosted
     permissions: write-all
+        # Set the working directory to main for the config files
+    defaults:
+      run:
+        shell: bash
+        working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Intial_Terraform
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
         
 
 
