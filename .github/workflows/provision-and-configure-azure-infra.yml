@@ -64,7 +64,7 @@ jobs:
          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
          CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
-         gh_repo_url: ${{ secrets.TF_VAR_GH_REPO_URL }}
+         gh_repo_url: ${{ secrets.TF_GH_REPO_URL }}
         run: terraform apply -auto-approve -var="gh_pat=$GH_runner_token" -var="gh_repo_url=$gh_repo_url" && echo $gh_repo_url
 
         
