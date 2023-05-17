@@ -67,6 +67,11 @@ jobs:
          gh_repo_url: ${{ secrets.TF_GH_REPO_URL }}
         run: terraform apply -auto-approve -var="gh_pat=$GH_runner_token" -var="gh_repo_url=$gh_repo_url" && echo $gh_repo_url
 
+
+  Infrastructure_Configure:
+    # The type of runner that the job will run on
+    runs-on: self-hosted
+    permissions: write-all
         
 
 
