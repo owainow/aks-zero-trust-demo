@@ -10,4 +10,4 @@ export RUNNER_ALLOW_RUNASROOT=1
 ./config.sh --url $GH_REPO_URL --token $GH_PAT
 
 # Last step, run it!
-./run.sh
+nohup ./run.sh
