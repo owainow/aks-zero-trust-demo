@@ -26,7 +26,7 @@ jobs:
       
      # Run Terraform Init
       - name: Install required packages.
-        run: apt-get install unzip -y && apt-get install python3 -y && apt-get install sudo -y && sudo apt-get install npm && ln -s /usr/bin/nodejs /usr/bin/node && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+        run: apt-get install unzip -y && apt-get install python3 -y && apt-get install sudo -y && sudo apt-get install npm -y && ln -s /usr/bin/nodejs /usr/bin/node && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
     
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
