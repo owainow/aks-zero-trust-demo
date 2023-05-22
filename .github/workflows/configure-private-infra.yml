@@ -19,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+     #   working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,7 +35,10 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.4.5
-      
+         # Install required packages
+      - name: Install required packages.
+        run: pwd && ls -lar 
+    
 
           
       # Run Terraform Init
