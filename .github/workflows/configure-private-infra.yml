@@ -24,15 +24,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-     # Run Terraform Init
+     # Install required packages
       - name: Install required packages.
-        run: apt-get install unzip -y && apt-get install python3 -y && apt-get install sudo -y && sudo apt-get install npm -y && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+        run: apt-get install unzip -y && apt-get install python3 -y && apt-get install sudo -y && sudo apt-get install npm -y &&  az aks install-cli | sudo bash && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
     
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.4.5
+      
+
           
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
