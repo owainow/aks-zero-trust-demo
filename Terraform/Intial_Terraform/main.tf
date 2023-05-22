@@ -72,6 +72,7 @@ module "aci" {
   gh_pat = var.gh_pat
   gh_repo_url = var.gh_repo_url
   resourceGroupName = azurerm_resource_group.rg.name
+  aks_private_dns = module.aks.aksPrivateDnsZone
 }
 
 

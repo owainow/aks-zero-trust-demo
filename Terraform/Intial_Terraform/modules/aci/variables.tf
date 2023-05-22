@@ -19,3 +19,7 @@ variable gh_pat {
 variable gh_repo_url {
     default = ""
 }
+
+variable "aksPrivateDnsZone" {
+  default = ""
+}
