@@ -24,7 +24,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+      
+     # Run Terraform Init
+      - name: Terraform Init for Intial Terraform Config
+        run: apt-get install unzip -y && curl -L https://aka.ms/InstallAzureCli | bash
     
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
