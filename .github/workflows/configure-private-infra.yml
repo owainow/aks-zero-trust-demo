@@ -19,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +40,7 @@ jobs:
           
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         id: init
         env:
          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -54,7 +54,7 @@ jobs:
       
       # Run Terraform Apply with Auto Approve
       - name: Terraform Apply for Intial Terraform Config
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
