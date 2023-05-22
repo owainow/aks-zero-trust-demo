@@ -42,7 +42,9 @@ resource "azurerm_container_group" "self_hosted_runners" {
       
 }
   dns_config {
-      nameservers = var.aks_private_dns
+      nameservers = [ 
+        var.aks_private_dns
+      ]
     }
 
 
