@@ -39,10 +39,14 @@ jobs:
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
 <<<<<<< HEAD
+<<<<<<< HEAD
         working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
 =======
         working-directory: /aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
 >>>>>>> 6bb97c306a9d8c44d4190b423666586dcd4657af
+=======
+        working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+>>>>>>> 16556102c76389695b2f87c3b297e0b2be2f6c31
         id: init
         env:
          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -57,10 +61,14 @@ jobs:
       # Run Terraform Apply with Auto Approve
       - name: Terraform Apply for Intial Terraform Config
 <<<<<<< HEAD
+<<<<<<< HEAD
         working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
 =======
         working-directory: /aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
 >>>>>>> 6bb97c306a9d8c44d4190b423666586dcd4657af
+=======
+        working-directory: /home/runner/work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+>>>>>>> 16556102c76389695b2f87c3b297e0b2be2f6c31
         env:
           ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
