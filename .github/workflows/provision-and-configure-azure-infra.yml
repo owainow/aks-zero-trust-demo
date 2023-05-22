@@ -56,7 +56,7 @@ jobs:
          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-         CONTAINER_NAME: ${{ secrets.CONTAINER_NAME_2 }}
+         CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
         run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
       
       # Run Terraform Apply with Auto Approve
@@ -69,7 +69,7 @@ jobs:
          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
          STORAGE_ACCOUNT: ${{ secrets.STORAGE_ACCOUNT }}
-         CONTAINER_NAME: ${{ secrets.CONTAINER_NAME_2 }}
+         CONTAINER_NAME: ${{ secrets.CONTAINER_NAME }}
          gh_repo_url: ${{ secrets.TF_GH_REPO_URL }}
         run: terraform apply -auto-approve -var="gh_pat=$GH_runner_token" -var="gh_repo_url=$gh_repo_url" 
         
