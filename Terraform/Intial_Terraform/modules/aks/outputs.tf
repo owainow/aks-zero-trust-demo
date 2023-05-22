@@ -15,6 +15,6 @@ output userObjectId {
   description = "Current User ObjectId"
 }
 output aksPrivateDnsZone {
-  value = jsondecode(azurerm_resource_group_template_deployment.aksc_deploy.output_content).aksPrivateDnsZone.value 
+  value = jsondecode(azurerm_resource_group_template_deployment.aksc_deploy.output_content).aksPrivateDnsZoneName.value 
   description = "Private DNS Zone for AKS"
 }
