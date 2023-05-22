@@ -20,6 +20,6 @@ variable gh_repo_url {
     default = ""
 }
 
-variable "aksPrivateDnsZone" {
+variable "aks_private_dns" {
   default = ""
 }
