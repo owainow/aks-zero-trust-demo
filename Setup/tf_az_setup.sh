@@ -16,7 +16,8 @@ az login
 export location="uksouth"                                           # This sets the Resource Group and Storage Account location.
 export rgname="example-rg-name"                                              # This sets the Resource Group name the Storage Account will be deployed into.
 export strname="oowghexample"                                  # This sets the Storage Account name - note this must be unique!
-export containername="tfstate"                                      # This sets the Container name.
+export containername="tfstate"   
+export containername2="tfstate2"                                             # This sets the Container for second workflow name.
 export envtag="Environment=TFStorage"                               # This sets the Environment Tag applied to the Resource Group and Storage Account.
 export spname="tfdeploy"                                            # This sets the Service Principal Name
 # Below Subscription should be the Management Subscription
@@ -30,6 +31,7 @@ az group create --location $location --name $rgname --tags $envtag
 az storage account create --location $location --resource-group $rgname --name $strname --tags $envtag --https-only --sku Standard_LRS --encryption-services blob --subscription $mansub
 export storageacckey=$(az storage account keys list --resource-group $rgname --account-name $strname --query '[0].value' -o tsv)
 az storage container create --name $containername --account-name $strname --account-key $storageacckey
+az storage container create --name $containername2 --account-name $strname --account-key $storageacckey
 
 # Creates Service Principal for TF to use and gives access at root. 
 export spid= az ad sp create-for-rbac -n $spname --role Owner --scopes  /subscriptions/$mansub
