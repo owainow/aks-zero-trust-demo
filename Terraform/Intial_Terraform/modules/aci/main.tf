@@ -38,6 +38,7 @@ resource "azurerm_container_group" "self_hosted_runners" {
     ports {
       port     = 443
       protocol = "TCP"
+
     }
       
 }
