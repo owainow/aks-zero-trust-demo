@@ -39,12 +39,11 @@ resource "azurerm_container_group" "self_hosted_runners" {
       port     = 443
       protocol = "TCP"
     }
-
-    dns_config{
-      name_servers = var.aks_private_dns
-    }
       
 }
+  dns_config {
+      name_servers = var.aks_private_dns
+    }
 
 
 }
