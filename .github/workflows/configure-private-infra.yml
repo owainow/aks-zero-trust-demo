@@ -65,12 +65,35 @@ jobs:
         run: az aks get-credentials -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --overwrite-existing --admin
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
 
-      - name: Setup Cluster for GitOps
+      - name: Setup Cluster for GitOps - Register Extension manager
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az feature register --namespace Microsoft.ContainerService --name AKS-ExtensionManager && \ 
-               az provider register --namespace Microsoft.Kubernetes && az provider register --namespace Microsoft.ContainerService && \
-               az provider register --namespace Microsoft.KubernetesConfiguration && \
-               az extension add -n k8s-configuration --upgrade && az extension add -n k8s-extension --upgrade
+        run: az feature register --namespace Microsoft.ContainerService --name AKS-ExtensionManager
+     
+      - name: Setup Cluster for GitOps - Register MSFT Kubernetes
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run:   az provider register --namespace Microsoft.Kubernetes  
+
+      - name: Setup Cluster for GitOps - Register MSFT-ContainerService
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az provider register --namespace Microsoft.ContainerService 
+
+      - name: Setup Cluster for GitOps - Register KubernetesConfig
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az provider register --namespace Microsoft.KubernetesConfiguration 
+
+      - name: Setup Cluster for GitOps - K8s  Config Upgrade
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az extension add -n k8s-configuration --upgrade 
+
+      - name: Setup Cluster for GitOps -  K8s Extension Upgrade
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az extension add -n k8s-extension --upgrade
+        
+          
+               
+
+               
+                
       
       - name: Install Flux
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
