@@ -50,7 +50,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        run: az aks update -g $RESOURCE_GROUP -n aks-oow-zerotrust --enable-local-accounts
+        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts
       # Will use cluster name output instead of hard coded name  here when running full workflow
       
       - name: Get KubeConfig
@@ -61,7 +61,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        run: az aks get-credentials -g $RESOURCE_GROUP -n aks-oow-zerotrust --overwrite-existing --admin
+        run: az aks get-credentials -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --overwrite-existing --admin
       # Will use cluster name output instead of hard coded name  here when running full workflow
 
           
@@ -97,6 +97,6 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        run: az aks update -g $RESOURCE_GROUP -n aks-oow-zerotrust --disable-local-accounts
+        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --disable-local-accounts
       # Will use cluster name output instead of hard coded name  here when running full workflow
       
