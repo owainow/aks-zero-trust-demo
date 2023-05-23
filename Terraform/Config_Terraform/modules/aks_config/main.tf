@@ -2,6 +2,11 @@ data "azurerm_kubernetes_cluster" "aks" {
   name                = var.aksclustername
   resource_group_name = var.rg_name
 }
+
+provider "kubernetes" {
+ config_path = "~/.kube/config"
+}
+
         
 
 
