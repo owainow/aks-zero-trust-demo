@@ -2,6 +2,8 @@
 A repository containing the files to setup and configure an AKS Zero Trust Demo
 
 
+**Contents**
+
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
 | `README.md`       | This README file. |
