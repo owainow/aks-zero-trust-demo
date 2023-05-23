@@ -70,7 +70,7 @@ jobs:
         run: az feature register --namespace Microsoft.ContainerService --name AKS-ExtensionManager && \ 
                az provider register --namespace Microsoft.Kubernetes && az provider register --namespace Microsoft.ContainerService && \
                az provider register --namespace Microsoft.KubernetesConfiguration && \
-               az extension add -n k8s-configuration --upgrade && az extension add -n k8s-extension --upgrade && \
+               az extension add -n k8s-configuration --upgrade && az extension add -n k8s-extension --upgrade
       
       - name: Install Flux
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -89,7 +89,7 @@ jobs:
             -u https://github.com/owainow/aks-zero-trust-demo \
             --branch master  \
             --kustomization name=infrastructure path=./Cluster/infrastructure prune=true \
-            --kustomization name=apps path=./apps/staging prune=true dependsOn=["infrastructure"] \
+            --kustomization name=apps path=./apps/staging prune=true dependsOn=["infrastructure"] 
 
           
       # Run Terraform Init
