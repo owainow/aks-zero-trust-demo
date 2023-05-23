@@ -50,8 +50,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        run: echo "Accounts enabled Removed for now"
-      #  run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts      REMOVED FOR NOW
+        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts     
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
       
       - name: Get KubeConfig
@@ -88,11 +87,24 @@ jobs:
       - name: Setup Cluster for GitOps -  K8s Extension Upgrade
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: az extension add -n k8s-extension --upgrade
-        
-          
-               
 
+      - name: Setup Cluster for Istio - Add extension for preview
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az extension add --name aks-preview
                
+      - name: Setup Cluster for Istio - Register for feature
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run:  az feature register --namespace "Microsoft.ContainerService" --name "AzureServiceMeshPreview"
+
+      - name: Setup Cluster for Istio - Enable istio on cluster
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az aks mesh enable -g oow-aks-zero-trust-demo -n aks-oow-zerotrust
+
+
+      - name: Install Flux
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az k8s-extension create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n flux --extension-type microsoft.flux -t managedClusters --auto-upgrade-minor-version true
+       
                 
 
       - name: Configure Flux
