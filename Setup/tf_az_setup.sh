@@ -33,8 +33,10 @@ export storageacckey=$(az storage account keys list --resource-group $rgname --a
 az storage container create --name $containername --account-name $strname --account-key $storageacckey
 az storage container create --name $containername2 --account-name $strname --account-key $storageacckey
 
-# Creates Service Principal for TF to use and gives access at root. 
-export spid= az ad sp create-for-rbac -n $spname --role Owner --scopes  /subscriptions/$mansub
+
+
+# Creates Service Principal for TF to use and gives access at root. --SDK auth is used for GH Actions. 
+export spid= az ad sp create-for-rbac -n $spname --role Owner --scopes  /subscriptions/$mansub --sdk-auth
 
 ########################################
 # Information to setup GitHub Secrets and Terraform backend configuration is output by the script below. 
