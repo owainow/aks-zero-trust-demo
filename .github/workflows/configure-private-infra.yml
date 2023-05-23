@@ -31,7 +31,7 @@ jobs:
         run: apt-get install unzip -y && apt-get install python3 -y && apt-get install sudo -y && sudo apt-get install npm -y && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && az aks install-cli | sudo bash
     
       - name: Azure Login
-        uses: Azure/login@v1.4.6
+        uses: Azure/login@v1
         with:
         # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.AZURE_CREDENTIALS }}
