@@ -97,13 +97,7 @@ jobs:
 
       - name: Configure Flux
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az k8s-configuration flux create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust \
-              -n cluster-config --namespace cluster-config -t managedClusters \
-              --scope cluster \
-              -u https://github.com/owainow/aks-zero-trust-demo \
-              --branch master  \
-              --kustomization name=infrastructure path=./Cluster/infrastructure prune=true \
-              --kustomization name=apps path=./apps/staging prune=true dependsOn=["infrastructure"] 
+        run: az k8s-configuration flux create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n cluster-config --namespace cluster-config -t managedClusters --scope cluster --u https://github.com/owainow/aks-zero-trust-demo --branch master  --kustomization name=infrastructure path=./Cluster/infrastructure prune=true --kustomization name=apps path=./apps/staging prune=true dependsOn=["infrastructure"] 
 
           
       # Run Terraform Init
