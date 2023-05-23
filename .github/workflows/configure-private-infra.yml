@@ -75,15 +75,22 @@ jobs:
       - name: Install Flux
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: az k8s-extension create -g oow-aks-zero-trust-demo --cluster-type managedClusters --cluster-name aks-oow-zerotrust --extension-type flux --release-namespace flux-system --scope cluster --auto-upgrade-minor-version true
-
       
- 
-
-
-      - name: Install private NGINX Inggress Controller
+      - name: Install Flux
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: kubectl apply -f modules/aks_config/nginx_files/pls-nginx.yaml 
-   
+        run: az k8s-extension create -g oow-aks-zero-trust-demo --cluster-type managedClusters --cluster-name aks-oow-zerotrust --extension-type flux --release-namespace flux-system --scope cluster --auto-upgrade-minor-version true
+      
+      
+      - name: Configure Flux
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az k8s-configuration flux create -g $RG -c $CLUSTER \
+            -n cluster-config --namespace cluster-config -t managedClusters \
+            --scope cluster \
+            -u https://github.com/owainow/aks-zero-trust-demo \
+            --branch master  \
+            --kustomization name=infrastructure path=./Cluster/infrastructure prune=true \
+            --kustomization name=apps path=./apps/staging prune=true dependsOn=["infrastructure"] \
+
           
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
