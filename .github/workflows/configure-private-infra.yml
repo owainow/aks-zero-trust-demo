@@ -97,12 +97,7 @@ jobs:
       
       - name: Install Flux
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az k8s-extension create -g oow-aks-zero-trust-demo --cluster-type managedClusters --cluster-name aks-oow-zerotrust --extension-type flux --release-namespace flux-system --scope cluster --auto-upgrade-minor-version true
-      
-      - name: Install Flux
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az k8s-extension create -g oow-aks-zero-trust-demo --cluster-type managedClusters --cluster-name aks-oow-zerotrust --extension-type flux --release-namespace flux-system --scope cluster --auto-upgrade-minor-version true
-      
+        run: az k8s-extension create -g oow-aks-zero-trust-demo -n flux --cluster-type managedClusters --cluster-name aks-oow-zerotrust --extension-type flux --release-namespace flux-system --scope cluster --auto-upgrade-minor-version true
       
       - name: Configure Flux
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
