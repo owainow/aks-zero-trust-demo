@@ -2,7 +2,7 @@
 A repository containing the files to setup and configure an AKS Zero Trust Demo
 
 
-**Contents**
+## Contents
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
