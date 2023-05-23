@@ -35,11 +35,11 @@ jobs:
         with:
         # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.ARM_CLIENT_SECRET }
-       # ClientId of the Azure Service principal created.
+        # ClientId of the Azure Service principal created.
           client-id: ${{ secrets.ARM_CLIENT_ID }}
-      # TenantId of the Azure Service principal created.
+        # TenantId of the Azure Service principal created.
           tenant-id: ${{ secrets.ARM_TENANT_ID }}
-      # Azure subscriptionId
+        # Azure subscriptionId
           subscription-id:  ${{ secrets.ARM_SUBSCRIPTION_ID }}
       
       # Install the preferred version of Terraform CLI 
