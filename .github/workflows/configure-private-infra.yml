@@ -50,8 +50,9 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts
-      # Will use cluster name output instead of hard coded name  here when running full workflow
+        run: echo "Accounts enabled Removed for now"
+      #  run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts      REMOVED FOR NOW
+      # Will use cluster name & RG output instead of hard coded name  here when running full workflow
       
       - name: Get KubeConfig
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -62,7 +63,7 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
         run: az aks get-credentials -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --overwrite-existing --admin
-      # Will use cluster name output instead of hard coded name  here when running full workflow
+      # Will use cluster name & RG output instead of hard coded name  here when running full workflow
 
           
       # Run Terraform Init
@@ -98,5 +99,5 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
         run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --disable-local-accounts
-      # Will use cluster name output instead of hard coded name  here when running full workflow
+      # Will use cluster name & RG output instead of hard coded name  here when running full workflow
       
