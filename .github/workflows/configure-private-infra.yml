@@ -64,7 +64,10 @@ jobs:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
         run: az aks get-credentials -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --overwrite-existing --admin
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
-
+      - name: Install private NGINX Inggress Controller
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: kubectl apply -f modules/aks_config/nginx_files/pls-nginx.yaml 
+   
           
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
