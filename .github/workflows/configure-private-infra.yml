@@ -64,6 +64,22 @@ jobs:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
         run: az aks get-credentials -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --overwrite-existing --admin
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
+
+      - name: Setup Cluster for GitOps
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az feature register --namespace Microsoft.ContainerService --name AKS-ExtensionManager && \ 
+               az provider register --namespace Microsoft.Kubernetes && az provider register --namespace Microsoft.ContainerService && \
+               az provider register --namespace Microsoft.KubernetesConfiguration && \
+               az extension add -n k8s-configuration --upgrade && az extension add -n k8s-extension --upgrade && \
+      
+      - name: Install Flux
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az k8s-extension create -g oow-aks-zero-trust-demo --cluster-type managedClusters --cluster-name aks-oow-zerotrust --extension-type flux --release-namespace flux-system --scope cluster --auto-upgrade-minor-version true
+
+      
+ 
+
+
       - name: Install private NGINX Inggress Controller
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: kubectl apply -f modules/aks_config/nginx_files/pls-nginx.yaml 
