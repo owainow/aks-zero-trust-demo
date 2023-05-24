@@ -65,7 +65,15 @@ data "azurerm_key_vault" "aks" {
   resource_group_name = var.resourceGroupName
 }
 
+# Wait for 5 minutes before creating node pool to ensure that the cluster is ready
+resource "time_sleep" "wait_5_Minutes" {
+  depends_on = [azurerm_resource_group_template_deployment.aksc_deploy]
+
+  create_duration = "5m"
+}
+
 resource "azurerm_kubernetes_cluster_node_pool" "np1" {
+  depends_on = [ time_sleep.wait_5_Minutes ]
   name                  = "fipsnp01"
   kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
   vm_size               = var.agentVMSize
@@ -79,6 +87,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "np1" {
 }
 
 resource "azurerm_kubernetes_cluster_node_pool" "np2" {
+  depends_on = [ time_sleep.wait_5_Minutes ]
   name                  = "cfdnp01"
   kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
   vm_size               = "Standard_DC2s_v3"
