@@ -53,6 +53,7 @@ resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
     oidcIssuer = {value=var.oidcIssuer}
     workloadIdentity = {value=var.workloadIdentity}
     enableSysLog = {value=var.enableSysLog}
+    fluxGitOpsAddon = {value=var.fluxGitOpsAddon}
   })
 }
 

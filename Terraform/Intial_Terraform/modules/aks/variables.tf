@@ -101,7 +101,7 @@ variable networkPolicy {
 } 
 variable azurepolicy {
   type=string
-  default="deny"
+  default="audit"
 } 
 variable azurePolicyInitiative {
   type=string
