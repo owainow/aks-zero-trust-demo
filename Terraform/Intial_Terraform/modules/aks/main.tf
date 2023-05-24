@@ -37,8 +37,8 @@ resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
     omsagent = {value=var.omsagent}
     retentionInDays = {value=var.retentionInDays}
     networkPolicy = {value=var.networkPolicy}
-    azurepolicy = {value=var.azurepolicy}
-    azurePolicyInitiative = {value=var.azurePolicyInitiative}
+#    azurepolicy = {value=var.azurepolicy}
+ #   azurePolicyInitiative = {value=var.azurePolicyInitiative}
     availabilityZones = {value=var.availabilityZones}
     maxPods = {value=var.maxPods}
     enablePrivateCluster = {value=var.enablePrivateCluster}
