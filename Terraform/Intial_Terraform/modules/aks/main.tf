@@ -72,19 +72,19 @@ resource "time_sleep" "wait_5_Minutes" {
   create_duration = "5m"
 }
 
-resource "azurerm_kubernetes_cluster_node_pool" "np1" {
-  depends_on = [ time_sleep.wait_5_Minutes ]
-  name                  = "fipsnp01"
-  kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
-  vm_size               = var.agentVMSize
-  node_count            = 3
-  fips_enabled = true
-  zones = [1, 2, 3]
-
-  tags = {
-    Environment = "fips_enabled"
-  }
-}
+#resource "azurerm_kubernetes_cluster_node_pool" "np1" {
+# depends_on = [ time_sleep.wait_5_Minutes ]
+#  name                  = "fipsnp01"
+#  kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
+#  vm_size               = var.agentVMSize
+#  node_count            = 3
+#  fips_enabled = true
+#  zones = [1, 2, 3]
+#
+#  tags = {
+#    Environment = "fips_enabled"
+#  }
+#}
 
 resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   depends_on = [ time_sleep.wait_5_Minutes ]
