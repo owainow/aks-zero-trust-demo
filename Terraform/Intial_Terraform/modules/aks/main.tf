@@ -52,7 +52,7 @@ resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
     workloadIdentity = {value=var.workloadIdentity}
     enableSysLog = {value=var.enableSysLog}
     azurepolicy = {value=var.azurepolicy}
-    azurePolicyInitiative = {value=var.azurePolicyInitiative}
+  
   })
 }
 
