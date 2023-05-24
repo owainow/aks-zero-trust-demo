@@ -51,6 +51,8 @@ resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
     oidcIssuer = {value=var.oidcIssuer}
     workloadIdentity = {value=var.workloadIdentity}
     enableSysLog = {value=var.enableSysLog}
+    azurepolicy = {value=var.azurepolicy}
+    azurePolicyInitiative = {value=var.azurePolicyInitiative}
   })
 }
 
@@ -89,5 +91,4 @@ resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   }
 }
 
-  #  azurepolicy = {value=var.azurepolicy}
-   # azurePolicyInitiative = {value=var.azurePolicyInitiative}
+    
