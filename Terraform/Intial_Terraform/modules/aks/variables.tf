@@ -99,14 +99,14 @@ variable networkPolicy {
   type=string
   default="calico"
 } 
-variable azurepolicy {
-  type=string
-  default="deny"
-} 
-variable azurePolicyInitiative {
-  type=string
-  default="Restricted"
-} 
+#variable azurepolicy {
+ # type=string
+  #default="deny"
+#} 
+#variable azurePolicyInitiative {
+ # type=string
+ # default="Restricted"
+#} 
 variable availabilityZones {
   default=["1","2","3"]
 } 
