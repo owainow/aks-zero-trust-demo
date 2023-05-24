@@ -103,20 +103,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: istioctl install
       
-      - name: Install Flux CLI
+      - name: Create ArgoCD Namespace and install argo
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: curl -s https://fluxcd.io/install.sh | sudo bash
-
-      - name: Install Flux
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az k8s-extension create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n flux --extension-type microsoft.flux -t managedClusters --version 1.6.4
-       
-                
-
-      - name: Configure Flux
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az k8s-configuration flux create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n cluster-config --namespace cluster-config -t managedClusters --scope cluster --u https://github.com/owainow/aks-zero-trust-demo --branch master  --kustomization name=infrastructure path=./Cluster/flux-system/infrastructure prune=true --kustomization name=apps path=.Cluster/flux-system/apps prune=true dependsOn=["infrastructure"] 
-
+        run: kubectl create namespace argocd && kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
           
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
