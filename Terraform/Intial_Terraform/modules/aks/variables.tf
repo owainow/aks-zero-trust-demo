@@ -101,7 +101,7 @@ variable networkPolicy {
 } 
 variable azurepolicy {
   type=string
-  default="audit"
+  default="deny"
 } 
 variable azurePolicyInitiative {
   type=string
@@ -135,10 +135,7 @@ variable keyVaultCreate {
   type=bool
   default=true
 } 
-variable fluxGitOpsAddon {
-  type=bool
-  default=true
-} 
+ 
 variable sgxPlugin {
   type=bool
   default=true
