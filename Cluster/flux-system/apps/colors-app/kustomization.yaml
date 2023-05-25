@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - colorswebapp.yaml
   - colorswebapi.yaml
+  - ingress-srv.yaml
   
   
