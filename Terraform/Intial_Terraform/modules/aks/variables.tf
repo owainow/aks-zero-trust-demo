@@ -26,7 +26,7 @@ variable SystemPoolType {
 } 
 variable agentVMSize {
   type=string
-  default="Standard_DC4s_v2"
+  default="Standard_DC4s_v3"
 } 
 variable nodePoolName {
   type=string
