@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   labels:
     app.kubernetes.io/name: colors
+    app: colors-web
   name: colors-web
 ---
 apiVersion: apps/v1

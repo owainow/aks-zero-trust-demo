@@ -1,0 +1,19 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-same-namespace
+  namespace: colors-api
+spec:
+  podSelector:
+    matchLabels:
+      color: blue
+  ingress:
+     - from:
+        -  namespaceSelector:
+            matchLabels:
+              app: colors-web
+     - ports:
+        - port: 80
+
+
+# Allow traffic in the Colors API namespace from namespaces with the label app: colors-web on port 80. 
