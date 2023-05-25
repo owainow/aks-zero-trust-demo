@@ -133,6 +133,10 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  argocd app create nginx-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune
 
+      - name: Deploy ArgoCD App - Colors App
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run:  argocd app create colors-app --repo $gh_repo_url --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune
+     
       - name: Deploy ArgoCD Infra - Istio
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  argocd app create istio-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/istio --self-heal --sync-policy automated --auto-prune
@@ -141,9 +145,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  argocd app create calico-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune
 
-      - name: Deploy ArgoCD Infra - Calico
+      - name: Deploy ArgoCD App - Remote Attest App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create calico-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create attest-app --repo $gh_repo_url --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune
 
       # Create apps for Argo using the ${{ github.repository }} variables so that it can be used by others. 
           
