@@ -7411,7 +7411,8 @@
               "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('firewallPublicIpName'))]",
                 "[resourceId('Microsoft.Network/publicIPAddresses', variables('firewallManagementPublicIpName'))]",
-                "[resourceId('Microsoft.Network/firewallPolicies', format('afwp-{0}', parameters('resourceName')))]"
+                "[resourceId('Microsoft.Network/firewallPolicies', format('afwp-{0}', parameters('resourceName')))]",
+                
               ]
             },
             {
