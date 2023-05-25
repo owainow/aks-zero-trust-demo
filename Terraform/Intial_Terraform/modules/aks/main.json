@@ -7304,7 +7304,7 @@
                 }
               }
             },
-            "fw_name": "[format('afw-{0}', parameters('resourceName'))]"
+            "fw_name": "[format('azfw-{0}', parameters('resourceName'))]"
           },
           "resources": [
             {
