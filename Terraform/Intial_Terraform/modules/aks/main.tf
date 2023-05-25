@@ -30,6 +30,8 @@ resource "azurerm_resource_group_template_deployment" "aksc_deploy" {
     registries_sku = {value=var.registries_sku}
     acrPushRolePrincipalId = {value=data.azurerm_client_config.current.object_id}
     enableACRTrustPolicy = {value=var.enableACRTrustPolicy}
+    azureFirewalls = {value=var.azureFirewalls}
+    azureFirewallSku = {value=var.azureFirewallsSku}
     privateLinks = {value=var.privateLinks}
     keyVaultIPAllowlist = {value=var.keyVaultIPAllowlist}
     omsagent = {value=var.omsagent}
