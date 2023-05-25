@@ -108,7 +108,7 @@ variable azurePolicyInitiative {
   default="Restricted"
 } 
 variable availabilityZones {
-  default=["1","3"]
+  default=["1","2","3"]
 } 
 variable maxPods {
   type=number
