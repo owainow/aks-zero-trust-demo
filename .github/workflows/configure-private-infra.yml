@@ -95,7 +95,8 @@ jobs:
       - name: Setup Cluster for Istio - Register for feature
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  az feature register --namespace "Microsoft.ContainerService" --name "AzureServiceMeshPreview"
-      - name: Install Flux CLI
+        
+      - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  curl -L https://istio.io/downloadIstio && export PATH=$HOME/.istioctl/bin:$PATH | sudo bash
 
