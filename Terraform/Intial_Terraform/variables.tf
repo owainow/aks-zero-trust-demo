@@ -1,6 +1,6 @@
 variable "location" {
   type    = string
-  default = "EastUs2"
+  default = "centralus"
 }
 
 variable "rg_name" {
