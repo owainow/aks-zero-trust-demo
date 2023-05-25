@@ -12,6 +12,9 @@ spec:
         -  namespaceSelector:
             matchLabels:
               app: colors-web
+        - namespaceSelector:
+            matchLabels:
+              app.kubernetes.io/name: ingress-nginx
      - ports:
         - port: 80
 
