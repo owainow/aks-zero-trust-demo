@@ -46,6 +46,7 @@ Below are the details of the storage account that will need to be in the Terrafo
 Resource Group: $rgname
 Storage Account: $strname
 Container Name: $containername
+Azure Credentials: $spid
 
 Below are the details of the Service Principal that will need to be in the GitHub Repo Secrets:
 ARM_CLIENT_ID: "$spid.appid"
