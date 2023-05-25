@@ -31,6 +31,7 @@ A repository containing the files to setup and configure an AKS Zero Trust Demo
 |-------------------|--------------------------------------------|
 | `FIPS enabled nodepools`       | Utilise FIPS enabled nodepools. |
 | `Workload Identity`       | Use workload identity to restrict access to Azure resources. |
+| `Firewall Egress`       | Setup Azure Firewall to process egress traffic. |
 | `Full Gatekeeper demo`       | Show examples of using Gatekeeper in AKS. |
 | `APIM Intergration`    | Utilising APIM for JWT validation forwarding requests through PLS. |
 | `App Armor`    | Demonstrate use of App Armor|
