@@ -1009,7 +1009,7 @@
         "availabilityZones": []
       },
       "Standard": {
-        "vmSize": "Standard_DS3",
+        "vmSize": "Standard_D4ls_v5",
         "count": 3,
         "minCount": 3,
         "maxCount": 5,
