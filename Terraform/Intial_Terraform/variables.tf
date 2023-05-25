@@ -1,6 +1,6 @@
 variable "location" {
   type    = string
-  default = "centralus"
+  default = "eastus"
 }
 
 variable "rg_name" {
