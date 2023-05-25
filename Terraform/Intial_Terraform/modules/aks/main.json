@@ -5542,7 +5542,7 @@
                 }
               }
             ],
-            "akvName": "[take(format('kv-{0}{1}', replace(parameters('resourceName'), '-', ''), uniqueString(resourceGroup().id, parameters('resourceName'))), 12)]"
+            "akvName": "[take(format('kv-{0}{1}', replace(parameters('resourceName'), '-', ''), uniqueString(resourceGroup().id, parameters('resourceName'))), 18)]"
           },
           "resources": [
             {
@@ -7304,7 +7304,7 @@
                 }
               }
             },
-            "fw_name": "[format('azfw-{0}', parameters('resourceName'))]"
+            "fw_name": "[format('afw-{0}', parameters('resourceName'))]"
           },
           "resources": [
             {
