@@ -492,7 +492,7 @@
     },
     "agentVMSize": {
       "type": "string",
-      "defaultValue": "Standard_D4ls_v5",
+      "defaultValue": "Standard_DS3_v2",
       "metadata": {
         "description": "VM SKU"
       }
@@ -1009,7 +1009,7 @@
         "availabilityZones": []
       },
       "Standard": {
-        "vmSize": "Standard_D4ls_v5",
+        "vmSize": "Standard_DS2_v2",
         "count": 3,
         "minCount": 3,
         "maxCount": 5,
@@ -1021,7 +1021,7 @@
         ]
       },
       "HighSpec": {
-        "vmSize": "Standard_D4ls_v5",
+        "vmSize": "Standard_D4s_v3",
         "count": 3,
         "minCount": 3,
         "maxCount": 5,
