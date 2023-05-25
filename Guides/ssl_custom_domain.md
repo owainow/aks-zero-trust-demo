@@ -23,4 +23,10 @@ We can create the Kuberentes secrets using (replacing my file names with yours):
 
 kubectl create secret tls test-tls --key owainonline.key --cert owain_online.crt -n ingress-nginx
 
-We now need to modify and redeploy our ingress file to reflect our hostname. Open the ingress.yaml file in your chosen editor and replace the hostname fields that contain owain.online with your chosen domain name. ArgoCD will sync this 
+We now need to modify and redeploy our ingress file to reflect our hostname. Open the ingress.yaml file in your chosen editor and replace the hostname fields that contain owain.online with your chosen domain name. Push that change to your fork and ArgoCD will sync this change soon. You can force the app sync using the following command: 
+
+argocd app sync nginx-infra
+
+Finally we will need to add the custom domain name to our frontdoor instance. We can do that by going to our FrontDoor deployment, selecting domains and adding our domain. We then need to add a cname record in our domain zone which can be done through the frontdoor portal by selecting the "Pending" validation button and pressing the "Add" button. The propogation can take a few minutes. The status will change to provisoned and approved. 
+
+See the following link for more details: https://learn.microsoft.com/en-us/azure/frontdoor/standard-premium/how-to-add-custom-domain
