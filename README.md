@@ -1,8 +1,14 @@
 # Azure Kubernetes Service - Zero Trust Demo
 A repository containing the files to setup and configure an AKS Zero Trust Demo
 
-
-## Contents
+## Readment Contents 
+* [#### **Repository Contents**](##Repository-Contents)
+* [#### **Features**](##Features)
+* [#### **Roadmap**](##Roadmap)
+* [#### **Pre-Requisites**](##Pre-Requisites)
+* [#### **Implementation**](##Implementation)
+   
+## Repository Contents
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
@@ -31,7 +37,6 @@ A repository containing the files to setup and configure an AKS Zero Trust Demo
 |-------------------|--------------------------------------------|
 | `FIPS enabled nodepools`       | Utilise FIPS enabled nodepools. |
 | `Workload Identity`       | Use workload identity to restrict access to Azure resources. |
-| `Firewall Egress`       | Setup Azure Firewall to process egress traffic. |
 | `Full Gatekeeper demo`       | Show examples of using Gatekeeper in AKS. |
 | `APIM Intergration`    | Utilising APIM for JWT validation forwarding requests through PLS. |
 | `App Armor`    | Demonstrate use of App Armor|
@@ -50,3 +55,17 @@ Once you have run the setup script please add the corresponding values into your
 ![image](https://github.com/owainow/aks-zero-trust-demo/assets/48108258/0eec7f90-250a-4cc7-96e6-56a4427d2a48)
 
 It is worth noting there is some duplication due to differnet workflow plugin tools. The Azure_Credentials secret is the full JSON output of the SP creation.
+
+## Pre-Requisites 
+
+Please refer to the following files on how to configure each demo: 
+
+* #### **SSL Termination**
+* #### **Oauth2 Proxy**
+* #### **Istio MTLS**
+* #### **Gitops - Limit Cluster Access**
+* #### **Image Scanning using Azure Container Registry**
+* #### **Confidential Compute**
+* #### **Calico Network Policies**
+
+
