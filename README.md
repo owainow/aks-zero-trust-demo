@@ -2,11 +2,11 @@
 A repository containing the files to setup and configure an AKS Zero Trust Demo
 
 ## Readment Contents 
-* [**Repository Contents**](##Repository-Contents)
-* [**Features**](##Features)
-* [**Roadmap**](##Roadmap)
-* [**Pre-Requisites**](##Pre-Requisites)
-* [**Implementation**](##Implementation)
+* [**Repository Contents**](#Repository-Contents)
+* [**Features**](#Features)
+* [**Roadmap**](#Roadmap)
+* [**Pre-Requisites**](#Pre-Requisites)
+* [**Implementation**](#Implementation)
    
 ## Repository Contents
 
@@ -56,7 +56,7 @@ Once you have run the setup script please add the corresponding values into your
 
 It is worth noting there is some duplication due to differnet workflow plugin tools. The Azure_Credentials secret is the full JSON output of the SP creation.
 
-## Pre-Requisites 
+## Implementation  
 
 Please refer to the following files on how to configure each demo: 
 
