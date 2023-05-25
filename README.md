@@ -2,11 +2,11 @@
 A repository containing the files to setup and configure an AKS Zero Trust Demo
 
 ## Readment Contents 
-* [#### **Repository Contents**](##Repository-Contents)
-* [#### **Features**](##Features)
-* [#### **Roadmap**](##Roadmap)
-* [#### **Pre-Requisites**](##Pre-Requisites)
-* [#### **Implementation**](##Implementation)
+* [**Repository Contents**](##Repository-Contents)
+* [**Features**](##Features)
+* [**Roadmap**](##Roadmap)
+* [**Pre-Requisites**](##Pre-Requisites)
+* [**Implementation**](##Implementation)
    
 ## Repository Contents
 
