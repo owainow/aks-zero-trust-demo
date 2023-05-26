@@ -103,7 +103,7 @@ jobs:
 
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  cd / && curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh && cd /istio-1.17.2 && chmod -R +x bin && export PATH="$PATH:/istio-1.17.2/bin" && istioctl install -y
+        run:  cd / && curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh && cd /istio-1.17.2 && chmod -R +x bin && export PATH="$PATH:/istio-1.17.2/bin" && istioctl install -y --set profile=minimal
      
       
       - name: Setup Cluster for Argo - Install Argo CLI
