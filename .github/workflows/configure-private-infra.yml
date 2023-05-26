@@ -103,23 +103,12 @@ jobs:
 
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  cd / && curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh - 
+        run:  cd / && curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh && cd /istio-1.17.2 && chmod -R +x bin && export PATH="$PATH:/istio-1.17.2/bin" && istioctl install -y
      
-      - name: Install Istio CLI
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  cd /istio-1.17.2 && chmod +x bin/istioctl
-
-      - name: Install Istio CLI
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  export PATH="$PATH:/istio-1.17.2/bin" | sh -
-
-      - name: Setup Cluster for Istio - Enable istio on cluster
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: istioctl install -y 
       
       - name: Setup Cluster for Argo - Install Argo CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd | sudo bash
+        run: curl -SL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd | sudo bash
            
       - name: Create ArgoCD Namespace and install argo
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
