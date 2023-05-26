@@ -107,11 +107,7 @@ jobs:
      
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  cd istio-1.17.2
-
-      - name: Install Istio CLI
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  chmod +x bin/istioctl
+        run:  cd istio-1.17.2 && chmod +x bin/istioctl
 
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
