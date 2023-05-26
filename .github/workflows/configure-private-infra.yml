@@ -103,7 +103,7 @@ jobs:
 
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh - && cd istio-1.17.2 && chmod +x bin/istioctl export PATH=$PWD/bin:$PATH  | sh -
+        run:  curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh - && cd istio-1.17.2 && chmod +x bin/istioctl && export PATH=$PWD/bin:$PATH  | sh -
 
       - name: Setup Cluster for Istio - Enable istio on cluster
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
