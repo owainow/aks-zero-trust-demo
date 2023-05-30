@@ -100,4 +100,24 @@ resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   }
 }
 
-    
+data "azurerm_user_assigned_identity" "aks_uai" {
+  name                = "id-aks-${var.resourceName}"
+  resource_group_name = var.resourceGroupName
+}
+
+
+
+resource "azurerm_role_assignment" "etcd_assignment"{
+  scope                = data.azurerm_key_vault.aks.id
+  role_definition_name = "Key Vault Crypto User"
+  principal_id         = data.azurerm_user_assigned_identity.aks_uai.principal_id
+  principal_type       = "ServicePrincipal"
+}
+
+resource "azurerm_role_assignment" "privatelink_assignment"{
+  scope                = data.azurerm_key_vault.aks.id
+  role_definition_name = "Key Vault Contributor"
+  principal_id         = data.azurerm_user_assigned_identity.aks_uai.principal_id
+  principal_type       = "ServicePrincipal"
+}
+
