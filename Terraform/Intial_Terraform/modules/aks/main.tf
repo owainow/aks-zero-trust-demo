@@ -100,3 +100,17 @@ resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   }
 }
 
+data "azurerm_user_assigned_identity" "aks_uai" {
+  name                = "id-aks-${var.resourceName}"
+  resource_group_name = var.resourceGroupName
+}
+
+resource "azurerm_key_vault_access_policy" "etcd_uai" {
+  depends_on = [ azurerm_kubernetes_cluster_node_pool.np2 ]
+  key_vault_id = data.azurerm_key_vault.aks.id
+  tenant_id = data.azurerm_client_config.current.tenant_id
+  object_id    = data.azurerm_user_assigned_identity.aks_uai.principal_id
+  key_permissions    = [ "unwrapkey", "wrapkey", "encrypt", "decrypt", "sign", "verify"]
+
+}
+
