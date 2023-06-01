@@ -109,7 +109,7 @@ jobs:
         env: 
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
           cluster_name: ${{ secrets.cluster_name }}
-        run: az aks mesh enable --resource-group $RESOURCE_GROUP --name aks-oow-zerotrust
+        run: az aks mesh enable --resource-group "$RESOURCE_GROUP" --name aks-oow-zerotrust
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
 
       - name: Install Istio CLI
