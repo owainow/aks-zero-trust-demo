@@ -111,7 +111,7 @@ jobs:
           cluster_name: ${{ secrets.cluster_name }}
         run: az aks mesh enable --resource-group $RESOURCE_GROUP --name aks-oow-zerotrust
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
-      
+
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  cd / && curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh && cd /istio-1.17.2 && chmod -R +x bin && export PATH="$PATH:/istio-1.17.2/bin" && echo "$PATH:/istio-1.17.2/bin" >> $GITHUB_PATH
@@ -155,9 +155,7 @@ jobs:
 
       - name: Deploy ArgoCD App - Remote Attest App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create attest-app --repo $gh_repo_url --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune
-
-      # Create apps for Argo using the ${{ github.repository }} variables so that it can be used by others. 
+        run:  argocd app create attest-app --repo $gh_repo_url --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune 
           
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
