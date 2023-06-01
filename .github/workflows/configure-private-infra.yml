@@ -104,9 +104,14 @@ jobs:
       - name: Install Helm
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && ./get_helm.sh
-      - name: Install Istio with Helm
-        run: kubectl create namespace istio-system && helm repo add istio https://istio-release.storage.googleapis.com/charts && helm repo update && helm install istio-base istio/base -n istio-system && helm install istiod istio/istiod -n istio-system 
-
+     
+      - name: Install Istio 
+        env: 
+          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+          cluster_name: ${{ secrets.cluster_name }}
+        run: az aks mesh enable --resource-group $RESOURCE_GROUP --name aks-oow-zerotrust
+      # Will use cluster name & RG output instead of hard coded name  here when running full workflow
+      
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  cd / && curl -L https://istio.io/downloadIstio | ISTIO_VERSION=1.17.2 sh && cd /istio-1.17.2 && chmod -R +x bin && export PATH="$PATH:/istio-1.17.2/bin" && echo "$PATH:/istio-1.17.2/bin" >> $GITHUB_PATH
