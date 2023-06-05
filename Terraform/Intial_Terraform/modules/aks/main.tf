@@ -115,7 +115,7 @@ resource "azurerm_key_vault_access_policy" "etcd_uai" {
   key_vault_id = data.azurerm_key_vault.aks.id
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id    = data.azurerm_user_assigned_identity.aks_uai.principal_id
-  key_permissions    = [ "unwrapkey", "wrapkey", "encrypt", "decrypt", "sign", "verify"]
+  key_permissions    = [ "UnwrapKey", "WrapKey", "Encrypt", "Decrypt", "Sign", "Verify"]
 
 }
 
