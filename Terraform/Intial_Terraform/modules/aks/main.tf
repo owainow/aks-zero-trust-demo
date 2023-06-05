@@ -122,8 +122,8 @@ resource "azurerm_key_vault_access_policy" "etcd_uai" {
 resource "azurerm_firewall_network_rule_collection" "image_repo" {
   depends_on = [ azurerm_key_vault_access_policy.etcd_uai ]
   name                = "image_repo_ip_allowlist"
-  azure_firewall_name = azurerm_firewall.example.name
-  resource_group_name = azurerm_resource_group.example.name
+  azure_firewall_name = data.azurerm_firewall.aks-egress-firewall.name
+  resource_group_name = var.resourceGroupName
   priority            = 100
   action              = "Allow"
 
