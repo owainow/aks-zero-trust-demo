@@ -66,6 +66,7 @@ data "azurerm_key_vault" "aks" {
 }
 
 data "azurerm_firewall" "aks-egress-firewall" {
+  depends_on = [ azurerm_resource_group_template_deployment.aksc_deploy ]
   name                = "afw-${var.resourceName}"
   resource_group_name = var.resourceGroupName
 }
@@ -106,6 +107,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "np2" {
 }
 
 data "azurerm_user_assigned_identity" "aks_uai" {
+  depends_on = [ azurerm_kubernetes_cluster_node_pool.np2 ]
   name                = "id-aks-${var.resourceName}"
   resource_group_name = var.resourceGroupName
 }
