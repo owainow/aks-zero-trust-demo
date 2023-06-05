@@ -76,7 +76,7 @@ data "azurerm_firewall_policy" "aks-egress-policy" {
   resource_group_name = var.resourceGroupName
 }
 
-data "azurerm_firewall_policy_rule_collection_group" "aks-egress-firewall" {
+ resource "azurerm_firewall_policy_rule_collection_group" "aks-egress-firewall" {
   depends_on = [ data.azurerm_firewall.aks-egress-firewall ]
   name                = "afw-${var.resourceName}-tf-rule-collection-group"
   firewall_policy_id = data.azurerm_firewall_policy.aks-egress-policy.id
