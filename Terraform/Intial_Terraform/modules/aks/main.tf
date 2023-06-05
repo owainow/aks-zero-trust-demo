@@ -72,6 +72,7 @@ data "azurerm_firewall" "aks-egress-firewall" {
 }
 
 data "azurerm_firewall_policy" "aks-egress-policy" {
+  depends_on = [ azurerm_resource_group_template_deployment.aksc_deploy ]
   name                = "afwp-${var.resourceName}"
   resource_group_name = var.resourceGroupName
 }
