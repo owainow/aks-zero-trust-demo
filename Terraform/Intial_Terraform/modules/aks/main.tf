@@ -65,6 +65,11 @@ data "azurerm_key_vault" "aks" {
   resource_group_name = var.resourceGroupName
 }
 
+data "azurerm_firewall" "aks-egress-firewall" {
+  name                = "afw-${var.resourceName}"
+  resource_group_name = var.resourceGroupName
+}
+
 # Wait for 5 minutes before creating node pool to ensure that the cluster is ready
 #resource "time_sleep" "wait_5_Minutes" {
 #  depends_on = [azurerm_resource_group_template_deployment.aksc_deploy]
@@ -114,3 +119,31 @@ resource "azurerm_key_vault_access_policy" "etcd_uai" {
 
 }
 
+resource "azurerm_firewall_network_rule_collection" "image_repo" {
+  depends_on = [ azurerm_key_vault_access_policy.etcd_uai ]
+  name                = "image_repo_ip_allowlist"
+  azure_firewall_name = azurerm_firewall.example.name
+  resource_group_name = azurerm_resource_group.example.name
+  priority            = 100
+  action              = "Allow"
+
+  rule {
+    name = "quay"
+
+    source_addresses = [
+      "10.240.0.0/22",
+    ]
+
+    destination_ports = [
+      "80,443,8080",
+    ]
+
+    destination_addresses = [
+      "50.19.215.206 , 50.17.203.165 , 23.21.56.188 , 23.23.103.69"
+    ]
+
+    protocols = [
+      "TCP"
+    ]
+  }
+}
