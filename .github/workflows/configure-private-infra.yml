@@ -127,6 +127,7 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: kubectl create namespace argocd && kubectl apply -f argocd.yaml -n argocd
 
+
     #  - name: Flux install 
     #    working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
     #    run: az k8s-extension create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n flux --extension-type microsoft.flux -t managedClusters --version 1.6.4
