@@ -110,9 +110,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && ./get_helm.sh
      
-      - name: Install Istio 
-        run: az aks mesh enable --resource-group oow-aks-zero-trust-demo --name aks-oow-zerotrust
-      # Will use cluster name & RG output instead of hard coded name  here when running full workflow
+ #     - name: Install Istio 
+ #       run: az aks mesh enable --resource-group oow-aks-zero-trust-demo --name aks-oow-zerotrust
+ #     # Will use cluster name & RG output instead of hard coded name  here when running full workflow
 
       - name: Install Istio CLI
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
