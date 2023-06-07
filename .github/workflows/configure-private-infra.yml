@@ -106,6 +106,10 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  az feature register --namespace "Microsoft.ContainerService" --name "AzureServiceMeshPreview"
 
+      - name: Pull NGINX images to Azure Container Registry
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/controller:v1.5.1 --image ingress-nginx-controller:latest && az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20220916-gd32f8c343 --image ingress-nginx-webhook:latest
+        
       - name: Install Helm
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && ./get_helm.sh
@@ -147,6 +151,7 @@ jobs:
       - name: Deploy ArgoCD App - Colors App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  argocd app create colors-app --repo $gh_repo_url --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
+
 
 
       - name: Deploy ArgoCD Infra - NGINX
