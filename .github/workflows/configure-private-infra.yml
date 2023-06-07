@@ -143,13 +143,17 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: argocd login $(kubectl get endpoints argocd-server -n argocd --output=jsonpath='{.subsets[0].addresses[0].ip}'):8080 --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo) --insecure
 
+
+      - name: Deploy ArgoCD App - Colors App
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run:  argocd app create colors-app --repo $gh_repo_url --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
+
+
       - name: Deploy ArgoCD Infra - NGINX
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  argocd app create nginx-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
 
-      - name: Deploy ArgoCD App - Colors App
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create colors-app --repo $gh_repo_url --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune
+
      
       - name: Deploy ArgoCD Infra - Istio
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
