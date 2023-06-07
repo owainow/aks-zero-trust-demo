@@ -145,7 +145,7 @@ jobs:
 
       - name: Deploy ArgoCD Infra - NGINX
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create nginx-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create nginx-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
 
       - name: Deploy ArgoCD App - Colors App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform

@@ -9,3 +9,6 @@ DEBIAN_FRONTEND=noninteractive apt-get install git -y
 RUN git clone https://github.com/owainow/aks-zero-trust-demo.git
 RUN chmod +x /aks-zero-trust-demo/Terraform/Intial_Terraform/modules/aci/scripts/configureLinuxRunner.sh
 ENTRYPOINT /aks-zero-trust-demo/Terraform/Intial_Terraform/modules/aci/scripts/configureLinuxRunner.sh
+search 145qppj22ihenez25uuouxx3ff.bx.internal.cloudapp.net
+nameserver 403313f6-a085-4acd-aaff-e378ec7968a1.privatelink.eastus.azmk8s.io
+nameserver 168.63.129.16
