@@ -281,11 +281,21 @@ resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   }
 }
 
+data "azurerm_subscription" "primary" {
+}
+
 data "azurerm_user_assigned_identity" "aks_uai" {
   depends_on = [ azurerm_kubernetes_cluster_node_pool.np2 ]
   name                = "id-aks-${var.resourceName}"
   resource_group_name = var.resourceGroupName
 }
+
+resource "azurerm_role_assignment" "aks_uai_read_vnets" {
+  scope                = var.resourceGroupName
+  role_definition_name = "Reader"
+  principal_id         = data.azurerm_user_assigned_identity.aks_uai.principal_id
+}
+
 
 resource "azurerm_key_vault_access_policy" "etcd_uai" {
   depends_on = [ azurerm_kubernetes_cluster_node_pool.np2 ]
