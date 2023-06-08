@@ -46,7 +46,7 @@ jobs:
       - name: Create nginx workload managed identity
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
-        run: az identity create -g $RESOURCE_GROUP $RE -n nginx-wl-msi
+        run: az identity create -g $RESOURCE_GROUP -n nginx-wl-msi
 
       - name: Get client-id
         env:
@@ -54,9 +54,19 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
         run: |
         
-            export nginx-wl-msi-clientid="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'clientId' -otsv)"
-            echo "client-id=$nginx-wl-msi-clientid" >  environment-properties.env
-            echo "client-id=$nginx-wl-msi-clientid" >> $GITHUB_ENV
+            export nginx_wl_msi_clientid="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'clientId' -otsv)"
+            echo "client_id=$nginx_wl_msi_clientid" >  environment-properties.env
+            echo "client_id=$nginx_wl_msi_clientid" >> $GITHUB_ENV
+
+      - name: Add Permisions to nginx workload managed identity
+        env:
+          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
+        run: |
+            export spID="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'principalId' -otsv)"
+            az role assignment create --assignee $spID --role 'Reader' --resource-group $RESOURCE_GROUP
+
 
 
       - name: Replace client id
@@ -70,7 +80,7 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
         run: |
             
-            az identity federated-credential create --name fed-cred-nginx-id --identity-name nginx-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"${SERVICE_ACCOUNT_NAMESPACE}":"${SERVICE_ACCOUNT_NAME}" --audience api://AzureADTokenExchange
+            az identity federated-credential create --name fed-cred-nginx-id --identity-name nginx-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"ingress-nginx":"ingress-nginx" --audience api://AzureADTokenExchange
       
       
       - name: Azure Login
