@@ -13,6 +13,15 @@ metadata:
 
 spec:
   replicas: 1
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: purpose
+            operator: In
+            values:
+            - sgx 
   selector:
     matchLabels:
       app: colors-api-service
@@ -37,8 +46,7 @@ spec:
             operator: "Equal" 
             value: "true" 
             effect: "NoSchedule" 
-      nodeSelector:
-          purpose: sgx
+
           
 ---
 apiVersion: v1
