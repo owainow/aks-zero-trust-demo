@@ -318,7 +318,6 @@ resource "azurerm_role_definition" "pls-aks-uai-permissions" {
   ]
 }
 
-# Need to create a custom role with min permissions e.g. read subnets, write subnets etc
 resource "azurerm_role_assignment" "aks_uai_read_vnets" {
   scope                = data.azurerm_subscription.primary.id
   role_definition_id   = azurerm_role_definition.pls-aks-uai-permissions.role_definition_resource_id
