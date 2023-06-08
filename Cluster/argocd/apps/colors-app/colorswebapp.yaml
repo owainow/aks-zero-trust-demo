@@ -14,6 +14,15 @@ metadata:
 
 spec:
   replicas: 1
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: purpose
+            operator: In
+            values:
+            - sgx 
   selector:
     matchLabels:
       app: colors-web-service

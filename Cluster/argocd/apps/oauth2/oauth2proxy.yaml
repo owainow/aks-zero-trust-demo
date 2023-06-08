@@ -8,6 +8,15 @@ metadata:
 
 spec:
   replicas: 1
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: purpose
+            operator: In
+            values:
+            - sgx 
   selector:
     matchLabels:
       application: colors-service-oauth2-proxy
