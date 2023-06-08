@@ -38,6 +38,10 @@ spec:
             operator: "Equal" 
             value: "true" 
             effect: "NoSchedule" 
+         nodeSelector:
+          purpose: sgx
+          
+
 ---
 ---
 apiVersion: v1
