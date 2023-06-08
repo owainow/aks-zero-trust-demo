@@ -18,5 +18,6 @@ metadata:
     app.kubernetes.io/name: ingress-nginx
     app.kubernetes.io/part-of: ingress-nginx
     app.kubernetes.io/version: 1.5.1
+    azure.workload.identity/use: "true"
   name: ingress-nginx
   namespace: ingress-nginx
