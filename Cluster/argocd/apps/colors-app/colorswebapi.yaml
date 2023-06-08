@@ -32,6 +32,12 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "1000m"
+         tolerations:
+          - key: "sgx" 
+            operator: "Equal" 
+            value: "true" 
+            effect: "NoSchedule" 
+          
 ---
 apiVersion: v1
 kind: Service
