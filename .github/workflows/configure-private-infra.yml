@@ -109,7 +109,7 @@ jobs:
       - name: Pull NGINX images to Azure Container Registry
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/controller:v1.5.1 --image ingress-nginx-controller:latest && az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20220916-gd32f8c343 --image ingress-nginx-webhook:latest
-        
+
       - name: Install Helm
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && ./get_helm.sh
@@ -142,7 +142,7 @@ jobs:
     #    working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
     #    run: az k8s-configuration flux create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n cluster-config --namespace cluster-config -t managedClusters --scope cluster --u https://github.com/owainow/aks-zero-trust-demo --branch master  --kustomization name=infrastructure path=./Cluster/flux-system/infrastructure prune=true --kustomization name=apps path=.Cluster/flux-system/apps prune=true dependsOn=["infrastructure"] 
      
-     
+
       - name: Login to argo server
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: argocd login $(kubectl get endpoints argocd-server -n argocd --output=jsonpath='{.subsets[0].addresses[0].ip}'):8080 --username admin --password $(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo) --insecure
@@ -150,28 +150,46 @@ jobs:
 
       - name: Deploy ArgoCD App - Colors App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create colors-app --repo $gh_repo_url --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
+        run:  argocd app create colors-app --repo $gh_repo_url.git --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
 
-
+      - name: Wait for deployment - 2 Minutes
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: sleep 2m
 
       - name: Deploy ArgoCD Infra - NGINX
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create nginx-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
+        run:  argocd app create nginx-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
 
+      - name: Wait for deployment - 2 Minutes
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: sleep 2m
 
      
       - name: Deploy ArgoCD Infra - Istio
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create istio-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/istio --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create istio-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/istio --self-heal --sync-policy automated --auto-prune
+
+      - name: Wait for deployment - 2 Minutes
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: sleep 2m
+
 
       - name: Deploy ArgoCD Infra - Calico
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create calico-infra --repo $gh_repo_url --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create calico-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune
+    
+      - name: Wait for deployment - 2 Minutes
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: sleep 2m
 
       - name: Deploy ArgoCD App - Remote Attest App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create attest-app --repo $gh_repo_url --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune 
-          
+        run:  argocd app create attest-app --repo $gh_repo_url.git --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune 
+
+      - name: Wait for deployment - 2 Minutes
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: sleep 2m
+
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
