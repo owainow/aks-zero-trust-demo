@@ -51,7 +51,7 @@ jobs:
       - name: Get client-id
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
+        working-directory:  /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
         run: |
         
             export nginx_wl_msi_clientid="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'clientId' -otsv)"
@@ -62,7 +62,7 @@ jobs:
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
         run: |
             export spID="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'principalId' -otsv)"
             az role assignment create --assignee $spID --role 'Reader' --resource-group $RESOURCE_GROUP
@@ -77,7 +77,7 @@ jobs:
       - name: Get Create federated-credential for nginx
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx
         run: |
             
             az identity federated-credential create --name fed-cred-nginx-id --identity-name nginx-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"ingress-nginx":"ingress-nginx" --audience api://AzureADTokenExchange
@@ -207,7 +207,7 @@ jobs:
 
       - name: Deploy ArgoCD Infra - NGINX
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create nginx-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
+        run:  argocd app create nginx-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
 
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
