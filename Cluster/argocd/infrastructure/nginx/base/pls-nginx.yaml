@@ -11,7 +11,7 @@ automountServiceAccountToken: true
 kind: ServiceAccount
 metadata:
   annotations: 
-    azure.workload.identity/client-id: "${USER_ASSIGNED_CLIENT_ID}"
+    azure.workload.identity/client-id: $(client-id)
   labels:
     app.kubernetes.io/component: controller
     app.kubernetes.io/instance: ingress-nginx
@@ -418,6 +418,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    azure.workload.identity/use: "true"
     app.kubernetes.io/component: controller
     app.kubernetes.io/instance: ingress-nginx
     app.kubernetes.io/name: ingress-nginx

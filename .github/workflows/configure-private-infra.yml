@@ -28,7 +28,7 @@ jobs:
       
      # Install required packages
       - name: Install required packages.
-        run: apt-get update && apt-get install unzip -y && apt-get install python3 -y && apt-get install sudo -y && sudo apt-get install npm -y && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && az aks install-cli | sudo bash
+        run: apt-get update && apt-get install unzip -y && apt-get install python3 -y && apt-get install -y gettext-base && apt-get install sudo -y && sudo apt-get install npm -y && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && az aks install-cli | sudo bash
       
       - name: Generate github repo url 
         run: |
@@ -36,20 +36,43 @@ jobs:
             echo "gh_repo_url=$gh_repo_url" >> $GITHUB_ENV
 
       - name: Get AKS OIDC 
+        env: 
+          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
         run: |
-            export aks_oidc_issuer="$(az aks show -n myAKSCluster -g "${RESOURCE_GROUP}" --query "oidcIssuerProfile.issuerUrl" -otsv)"
+            export aks_oidc_issuer="$(az aks show -n aks-oow-zerotrust -g $RESOURCE_GROUP --query "oidcIssuerProfile.issuerUrl" -otsv)"
             echo "aks_oidc_issuer=$aks_oidc_issuer" >> $GITHUB_ENV
       
       
       - name: Create nginx workload managed identity
-        run: az identity create -g oow-aks-zero-trust-demo -n nginx-wl-msi
+        env:
+          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
+        run: az identity create -g $RESOURCE_GROUP $RE -n nginx-wl-msi
 
       - name: Get client-id
+        env:
+          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
         run: |
-            export nginx-wl-msi-clientid="$(az identity show --resource-group "${RESOURCE_GROUP}" --name "${USER_ASSIGNED_IDENTITY_NAME}" --query 'clientId' -otsv)"
-            echo "nginx-wl-msi-clientid=$nginx-wl-msi-clientid" >> $GITHUB_ENV
+        
+            export nginx-wl-msi-clientid="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'clientId' -otsv)"
+            echo "client-id=$nginx-wl-msi-clientid" >  environment-properties.env
+            echo "client-id=$nginx-wl-msi-clientid" >> $GITHUB_ENV
 
 
+      - name: Replace client id
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
+        run: |
+            'envsubst < nginx-prep.yaml | kubectl apply -f - '
+
+      - name: Get Create federated-credential for nginx
+        env:
+          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx/overlays/production
+        run: |
+            
+            az identity federated-credential create --name fed-cred-nginx-id --identity-name nginx-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"${SERVICE_ACCOUNT_NAMESPACE}":"${SERVICE_ACCOUNT_NAME}" --audience api://AzureADTokenExchange
+      
+      
       - name: Azure Login
         uses: Azure/login@v1
         with:
