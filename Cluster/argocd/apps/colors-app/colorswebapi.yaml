@@ -32,12 +32,12 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "1000m"
-         tolerations:
+      tolerations:
           - key: "sgx" 
             operator: "Equal" 
             value: "true" 
             effect: "NoSchedule" 
-         nodeSelector:
+      nodeSelector:
           purpose: sgx
           
 ---

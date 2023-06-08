@@ -78,7 +78,7 @@ spec:
             value: "true" 
             effect: "NoSchedule" 
       nodeSelector:
-        purpose: sgx
+          purpose: sgx
 ---
 apiVersion: v1
 kind: Service
