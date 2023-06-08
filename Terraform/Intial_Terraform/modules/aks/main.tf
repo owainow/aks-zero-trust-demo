@@ -290,9 +290,38 @@ data "azurerm_user_assigned_identity" "aks_uai" {
   resource_group_name = var.resourceGroupName
 }
 
+resource "azurerm_role_definition" "pls-aks-uai-permissions" {
+  name               = "pls-aks-uai-permissions"
+  scope              = data.azurerm_subscription.primary.id
+
+  permissions {
+    actions     = [
+          "Microsoft.Resources/deployments/*",
+          "Microsoft.Resources/subscriptions/resourceGroups/read",
+          "Microsoft.Network/virtualNetworks/read",
+          "Microsoft.Network/virtualNetworks/subnets/read",
+          "Microsoft.Network/virtualNetworks/subnets/write",
+          "Microsoft.Network/virtualNetworks/subnets/join/action",
+          "Microsoft.Network/privateLinkServices/read",
+          "Microsoft.Network/privateLinkServices/write",
+          "Microsoft.Network/privateLinkServices/privateEndpointConnections/read",
+          "Microsoft.Network/privateLinkServices/privateEndpointConnections/write",
+          "Microsoft.Network/networkSecurityGroups/join/action",
+          "Microsoft.Network/loadBalancers/read",
+          "Microsoft.Network/loadBalancers/write"
+        ]
+    not_actions = []
+  }
+
+  assignable_scopes = [
+    data.azurerm_subscription.primary.id
+  ]
+}
+
+# Need to create a custom role with min permissions e.g. read subnets, write subnets etc
 resource "azurerm_role_assignment" "aks_uai_read_vnets" {
-  scope                = var.resourceGroupName
-  role_definition_name = "Reader"
+  scope                = data.azurerm_subscription.primary.id
+  role_definition_id   = azurerm_role_definition.pls-aks-uai-permissions.role_definition_resource_id
   principal_id         = data.azurerm_user_assigned_identity.aks_uai.principal_id
 }
 
