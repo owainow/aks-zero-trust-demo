@@ -43,10 +43,10 @@ jobs:
             echo "aks_oidc_issuer=$aks_oidc_issuer" >> $GITHUB_ENV
       
       
-      - name: Create nginx workload managed identity
+      - name: Create kv workload managed identity
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
-        run: az identity create -g $RESOURCE_GROUP -n nginx-wl-msi
+        run: az identity create -g $RESOURCE_GROUP -n kv-wl-msi
 
       - name: Get client-id
         env:
@@ -54,33 +54,27 @@ jobs:
         working-directory:  /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
         run: |
         
-            export nginx_wl_msi_clientid="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'clientId' -otsv)"
-            echo "client_id=$nginx_wl_msi_clientid" >  environment-properties.env
-            echo "client_id=$nginx_wl_msi_clientid" >> $GITHUB_ENV
+            export kv_wl_msi_clientid="$(az identity show --resource-group $RESOURCE_GROUP --name kv-wl-msi --query 'clientId' -otsv)"
+            echo "client_id=$kv_wl_msi_clientid" >  environment-properties.env
+            echo "client_id=$kv_wl_msi_clientid" >> $GITHUB_ENV
 
-      - name: Add Permisions to nginx workload managed identity
+      - name: Add Permisions to kv workload managed identity
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
         run: |
-            export spID="$(az identity show --resource-group $RESOURCE_GROUP --name nginx-wl-msi --query 'principalId' -otsv)"
+            export spID="$(az identity show --resource-group $RESOURCE_GROUP --name kv-wl-msi --query 'principalId' -otsv)"
             az role assignment create --assignee $spID --role 'Reader' --resource-group $RESOURCE_GROUP
 
 
-
-      - name: Replace client id
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
-        run: |
-            'envsubst < nginx-prep.yaml | kubectl apply -f - '
-
-      - name: Get Create federated-credential for nginx
+      - name: Get Create federated-credential for application kv
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx
         run: |
             
-            az identity federated-credential create --name fed-cred-nginx-id --identity-name nginx-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"ingress-nginx":"ingress-nginx" --audience api://AzureADTokenExchange
+            az identity federated-credential create --name fed-cred-kv-id --identity-name kv-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"ingress-nginx":"ingress-nginx" --audience api://AzureADTokenExchange
       
       
       - name: Azure Login
