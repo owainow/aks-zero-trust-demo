@@ -14,7 +14,7 @@ A repository containing the files to setup and configure an AKS Zero Trust Demo
 |-------------------|--------------------------------------------|
 | `README.md`       | This README file. |
 | `.github/workflows`    | Workflow files for GitHub Actions. |
-| `Cluster`    | Contains mainfests for cluster configuration via Flux |
+| `Cluster`    | Contains mainfests for cluster configuration via ArgoCD |
 | `Setup`    | Contains scripts to asssit in creation of demo, walkthrough included in this README. |
 | `Terraform` | Contains the intial and post deployment Terraform files used by GitHub actions. |
 | `LICENSE`         | The license for the sample. |
@@ -25,7 +25,7 @@ A repository containing the files to setup and configure an AKS Zero Trust Demo
 |-------------------|--------------------------------------------|
 | `SSL Termination`       | Use NGINX to terminate SSL on the Ingress Controller before using mTLS internally. |
 | `Oauth2 Proxy`    | Use Oauth2 Proxy with a sidecar architecture to preform authentication on individual microservices. |
-| `Istio MTLS`    | Contains mainfests for cluster configuration via Flux. |
+| `Istio MTLS`    | Contains example manifests for using Istio to implement MTLS in the cluster. |
 | `GitOps - Limit Cluster Access`    | Limit access to cluster through no User registration and deploying through ARGO.   |
 | `Image Scanning using Azure Container Registry` | Use Defender for Containers to scan ACR images for vunrabilites at Push and Pull. |
 | `Confidential Compute`         | Use confidential compute and software attestation to deploy to trusted execution enviroments. |
