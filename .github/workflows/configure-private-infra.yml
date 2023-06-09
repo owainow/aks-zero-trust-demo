@@ -213,7 +213,7 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  argocd app create nginx-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
 
-      - name: Wait for deployment - 2 Minutes
+      - name: Deploy ArgoCD Infra - Wait for service to be ready
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: | 
              echo "--- Wait until Loadbalancer url is present (see https://stackoverflow.com/a/70108500/4964553)"
