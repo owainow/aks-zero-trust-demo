@@ -311,8 +311,8 @@ resource "azurerm_role_definition" "pls-aks-uai-permissions" {
           "Microsoft.Network/loadBalancers/write",
           "Microsoft.Network/routeTables/join/action",
           "Microsoft.Network/locations/availablePrivateEndpointTypes/read",
-          "Microsoft.Network/privateEndpoints/**",
-          "Microsoft.Network/networkinterfaces/**"
+          "Microsoft.Network/privateEndpoints/*",
+          "Microsoft.Network/networkinterfaces/*"
         ]
     not_actions = []
   }
