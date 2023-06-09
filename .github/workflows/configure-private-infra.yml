@@ -34,6 +34,11 @@ jobs:
         run: |
             export gh_repo_url="https://github.com/repos/${{ github.repository }}"
             echo "gh_repo_url=$gh_repo_url" >> $GITHUB_ENV
+    
+      - name: Generate github repo url 
+        run: |
+            export gh__url="https://github.com/{{ github.repository }}"
+            echo "gh_url=$gh_url" >> $GITHUB_ENV
 
       
       - name: Azure Login
@@ -198,7 +203,7 @@ jobs:
 
       - name: Deploy ArgoCD App - Colors App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create colors-app --repo $gh_repo_url.git --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
+        run:  argocd app create colors-app --repo $gh_url.git --path Cluster/argocd/apps/colors-app --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc --directory-recurse
 
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -206,7 +211,7 @@ jobs:
 
       - name: Deploy ArgoCD Infra - NGINX
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create nginx-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
+        run:  argocd app create nginx-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/nginx --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
 
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -217,7 +222,7 @@ jobs:
      
       - name: Deploy ArgoCD Infra - Istio
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create istio-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/istio --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create istio-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/istio --self-heal --sync-policy automated --auto-prune
 
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -226,7 +231,7 @@ jobs:
 
       - name: Deploy ArgoCD Infra - Calico
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create calico-infra --repo $gh_repo_url.git --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create calico-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune
     
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -234,7 +239,7 @@ jobs:
 
       - name: Deploy ArgoCD App - Remote Attest App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create attest-app --repo $gh_repo_url.git --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune 
+        run:  argocd app create attest-app --repo $gh_url.git --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune 
 
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
