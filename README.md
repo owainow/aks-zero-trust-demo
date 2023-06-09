@@ -30,13 +30,13 @@ A repository containing the files to setup and configure an AKS Zero Trust Demo
 | `Image Scanning using Azure Container Registry` | Use Defender for Containers to scan ACR images for vunrabilites at Push and Pull. |
 | `Confidential Compute`         | Use confidential compute and software attestation to deploy to trusted execution enviroments. |
 | `Calico Network Policies`         | Use confidential compute and software attestation to deploy to trusted execution enviroments. |
+| `Workload Identity`       | Use workload identity to restrict access to Azure resources. |
 
 ## Roadmap
 
 | Feature       | Description                                |
 |-------------------|--------------------------------------------|
 | `FIPS enabled nodepools`       | Utilise FIPS enabled nodepools. |
-| `Workload Identity`       | Use workload identity to restrict access to Azure resources. |
 | `Full Gatekeeper demo`       | Show examples of using Gatekeeper in AKS. |
 | `APIM Intergration`    | Utilising APIM for JWT validation forwarding requests through PLS. |
 | `App Armor`    | Demonstrate use of App Armor|
