@@ -35,6 +35,13 @@ jobs:
             export gh_repo_url="https://github.com/repos/${{ github.repository }}"
             echo "gh_repo_url=$gh_repo_url" >> $GITHUB_ENV
 
+      
+      - name: Azure Login
+        uses: Azure/login@v1
+        with:
+        # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Get AKS OIDC 
         env: 
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
@@ -76,12 +83,6 @@ jobs:
             
             az identity federated-credential create --name fed-cred-kv-id --identity-name kv-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"ingress-nginx":"ingress-nginx" --audience api://AzureADTokenExchange
       
-      
-      - name: Azure Login
-        uses: Azure/login@v1
-        with:
-        # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Install the preferred version of Terraform CLI 
       - name: Setup Terraform
