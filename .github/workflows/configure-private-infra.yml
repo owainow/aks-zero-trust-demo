@@ -179,9 +179,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: curl -SL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd | sudo bash
 
-      - name: Setup Cluster for Argo - Install Apply Argo Manifest 
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: kubectl create namespace argocd && kubectl apply -f argocd.yaml -n argocd
+#      - name: Setup Cluster for Argo - Install Apply Argo Manifest 
+#        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+#        run: kubectl create namespace argocd && kubectl apply -f argocd.yaml -n argocd
 
       - name: Setup Cluster for Argo - Install Apply Argo Manifest 
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
