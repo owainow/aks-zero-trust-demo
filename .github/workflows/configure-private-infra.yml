@@ -64,6 +64,11 @@ jobs:
             echo "client_id=$kv_wl_msi_clientid" >  environment-properties.env
             echo "client_id=$kv_wl_msi_clientid" >> $GITHUB_ENV
 
+
+      - name: Allow to propergate - 2M Sleep
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: sleep 2m
+
       - name: Add Permisions to kv workload managed identity
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
