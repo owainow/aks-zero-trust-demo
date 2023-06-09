@@ -37,7 +37,7 @@ jobs:
     
       - name: Generate github repo url 
         run: |
-            export gh__url="https://github.com/{{ github.repository }}"
+            export gh_url="https://github.com/${{ github.repository }}"
             echo "gh_url=$gh_url" >> $GITHUB_ENV
 
       
