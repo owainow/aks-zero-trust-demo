@@ -46,14 +46,14 @@ jobs:
         env: 
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
         run: |
-            export aks_oidc_issuer="$(az aks show -n aks-oow-zerotrust -g $RESOURCE_GROUP --query "oidcIssuerProfile.issuerUrl" -otsv)"
+            export aks_oidc_issuer="$(az aks show -n aks-oow-zerotrust -g oow-aks-zero-trust-demo --query "oidcIssuerProfile.issuerUrl" -otsv)"
             echo "aks_oidc_issuer=$aks_oidc_issuer" >> $GITHUB_ENV
       
       
       - name: Create kv workload managed identity
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
-        run: az identity create -g $RESOURCE_GROUP -n kv-wl-msi
+        run: az identity create -g oow-aks-zero-trust-demo -n kv-wl-msi
 
       - name: Get client-id
         env:
@@ -61,7 +61,7 @@ jobs:
         working-directory:  /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
         run: |
         
-            export kv_wl_msi_clientid="$(az identity show --resource-group $RESOURCE_GROUP --name kv-wl-msi --query 'clientId' -otsv)"
+            export kv_wl_msi_clientid="$(az identity show --resource-group oow-aks-zero-trust-demo --name kv-wl-msi --query 'clientId' -otsv)"
             echo "client_id=$kv_wl_msi_clientid" >  environment-properties.env
             echo "client_id=$kv_wl_msi_clientid" >> $GITHUB_ENV
 
@@ -71,8 +71,8 @@ jobs:
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
         run: |
-            export spID="$(az identity show --resource-group $RESOURCE_GROUP --name kv-wl-msi --query 'principalId' -otsv)"
-            az role assignment create --assignee $spID --role 'Reader' --resource-group $RESOURCE_GROUP
+            export spID="$(az identity show --resource-group oow-aks-zero-trust-demo --name kv-wl-msi --query 'principalId' -otsv)"
+            az role assignment create --assignee $spID --role 'Reader' --resource-group oow-aks-zero-trust-demo
 
 
       - name: Get Create federated-credential for application kv
@@ -81,7 +81,7 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/infrastructure/nginx
         run: |
             
-            az identity federated-credential create --name fed-cred-kv-id --identity-name kv-wl-msi --resource-group  $RESOURCE_GROUP --issuer $aks_oidc_issuer --subject system:serviceaccount:"ingress-nginx":"ingress-nginx" --audience api://AzureADTokenExchange
+            az identity federated-credential create --name fed-cred-kv-id --identity-name kv-wl-msi --resource-group  oow-aks-zero-trust-demo --issuer $aks_oidc_issuer --subject system:serviceaccount:"ingress-nginx":"ingress-nginx" --audience api://AzureADTokenExchange
       
 
       # Install the preferred version of Terraform CLI 
