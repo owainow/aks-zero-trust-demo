@@ -62,7 +62,7 @@ jobs:
       - name: Get client-id
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
-        working-directory:  /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
+        working-directory:  /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: |
         
             export kv_wl_msi_clientid="$(az identity show --resource-group oow-aks-zero-trust-demo --name kv-wl-msi --query 'clientId' -otsv)"
@@ -78,7 +78,7 @@ jobs:
         env:
           RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }} 
           ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform/modules/aks_config/nginx_files
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: |
             export spID="$(az identity show --resource-group oow-aks-zero-trust-demo --name kv-wl-msi --query 'principalId' -otsv)"
             az role assignment create --assignee $spID --role 'Reader' --resource-group oow-aks-zero-trust-demo
