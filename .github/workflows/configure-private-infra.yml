@@ -222,7 +222,7 @@ jobs:
      
       - name: Deploy ArgoCD Infra - Istio
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create istio-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/istio --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create istio-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/istio --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
 
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -231,7 +231,7 @@ jobs:
 
       - name: Deploy ArgoCD Infra - Calico
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create calico-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune
+        run:  argocd app create calico-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
     
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -239,7 +239,7 @@ jobs:
 
       - name: Deploy ArgoCD App - Remote Attest App
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create attest-app --repo $gh_url.git --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune 
+        run:  argocd app create attest-app --repo $gh_url.git --path Cluster/argocd/apps/cvm-python-app-remoteattest --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
 
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
