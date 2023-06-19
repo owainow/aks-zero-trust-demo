@@ -3,10 +3,6 @@ terraform {
     azurerm = {
       source = "hashicorp/azurerm"
     }
-
-    kubernetes = {
-      source  = "hashicorp/kubernetes"
-    }
   }
   backend "azurerm" {
       resource_group_name  = "tfstate"
