@@ -231,7 +231,7 @@ jobs:
 
       - name: Deploy ArgoCD Infra - Calico
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run:  argocd app create calico-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/calico --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
+        run:  argocd app create calico-infra --repo $gh_url.git --path Cluster/argocd/infrastructure/network_policy --self-heal --sync-policy automated --auto-prune --dest-server https://kubernetes.default.svc 
     
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
