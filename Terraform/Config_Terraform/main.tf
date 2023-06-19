@@ -38,7 +38,6 @@ data "azurerm_resource_group" "rg" {
 
 
 module "front_door" {
-depends_on = [module.aks_config]
   source = "./modules/front_door"
 
   aks_managed_rg = var.aks_managed_rg
