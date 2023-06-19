@@ -4,7 +4,7 @@ metadata:
   name: colorsweb-destinationrule
   namespace: colors-web
 spec:
-  host: "colors-api-srv.colors-api.svc.cluster.local"
+  host: colors-api-srv.colors-api.svc.cluster.local
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
@@ -17,7 +17,7 @@ metadata:
   name: colorsapi-destinationrule
   namespace: colors-api
 spec:
-  host: colors-web-clusterip-srv.colors-web.svc.cluster.local"
+  host: colors-web-clusterip-srv.colors-web.svc.cluster.local
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
