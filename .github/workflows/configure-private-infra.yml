@@ -228,6 +228,7 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: sleep 2m
 
+        
 
       - name: Deploy ArgoCD Infra - Calico
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -244,6 +245,10 @@ jobs:
       - name: Wait for deployment - 2 Minutes
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: sleep 2m
+
+      - name: Install Kiali for Istio
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: helm repo add kiali https://kiali.org/helm-charts && helm repo update kiali && helm install --namespace kiali-operator --create-namespace kiali-operator kiali/kiali-operator
 
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
