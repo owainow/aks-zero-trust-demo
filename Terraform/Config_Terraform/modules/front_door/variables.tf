@@ -12,7 +12,7 @@ variable nginx-lb-ip {
 }
 variable aks_managed_rg {
   type = string
-  default = "oow-aks-zerotrust-managed-cluster-resources"
+  default = "oow-zerotrust-managed-cluster-resources"
 }
 
 variable aksclustername {
