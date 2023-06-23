@@ -99,15 +99,14 @@ jobs:
         with:
           terraform_version: 1.4.5
     
-      - name: Enable local accounts
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts     
+#      - name: Enable local accounts
+#        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+#        env:
+#          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+#          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+#          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+#          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+#          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
       
       - name: Get KubeConfig
@@ -187,14 +186,6 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: sleep 2m
 
-      - name: Flux install 
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az k8s-extension create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n flux --extension-type microsoft.flux -t managedClusters --version 1.6.4
-
-      - name: Configure Flux
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        run: az k8s-configuration flux create -g oow-aks-zero-trust-demo -c aks-oow-zerotrust -n cluster-config --namespace cluster-config -t managedClusters --scope cluster --u https://github.com/owainow/aks-zero-trust-demo --branch master  --kustomization name=infrastructure path=./Cluster/flux-system/infrastructure prune=true --kustomization name=apps path=.Cluster/flux-system/apps prune=true dependsOn=["infrastructure"] 
-     
 
       - name: Login to argo server
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
