@@ -60,7 +60,7 @@ resource "azurerm_cdn_frontdoor_origin" "nginx-ingress-origin" {
 
   private_link {
     request_message        = "Request access"
-    location               = var.resourceGroupName
+    location               = var.location
     private_link_target_id = data.azurerm_private_link_service.nginx-ingress.id
   }
 }
