@@ -532,6 +532,12 @@ spec:
       - name: webhook-cert
         secret:
           secretName: ingress-nginx-admission
+      tolerations:
+          - key: "sgx" 
+            operator: "Equal" 
+            value: "true" 
+            effect: "NoSchedule" 
+
 ---
 apiVersion: batch/v1
 kind: Job
