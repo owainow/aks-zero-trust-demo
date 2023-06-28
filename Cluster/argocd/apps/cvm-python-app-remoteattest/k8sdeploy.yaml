@@ -63,16 +63,3 @@ spec:
             value: "true" 
             effect: "NoSchedule" 
       restartPolicy: Never
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: azure-cvm-attest
-  namespace: azure-cvm-attest
-spec:
-  type: LoadBalancer
-  ports:
-  - port: 8081
-  selector:
-    app: azure-cvm-attest
