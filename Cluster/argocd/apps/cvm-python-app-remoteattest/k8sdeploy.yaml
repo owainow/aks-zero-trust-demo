@@ -12,15 +12,6 @@ metadata:
   labels:
     app: cvm-attestation
 spec:
-  affinity:
-    nodeAffinity:
-     requiredDuringSchedulingIgnoredDuringExecution:
-     nodeSelectorTerms:
-      - matchExpressions:
-         - key: purpose
-           operator: In
-           values:
-           - sgx   
   containers:
   - image: mcr.microsoft.com/acc/samples/cvm-attestation:1.1
     imagePullPolicy: IfNotPresent
@@ -31,9 +22,9 @@ spec:
       - mountPath: /dev/tpmrm0
         name: tpmrm0
     securityContext:
-      privileged: true
+      privileged: false
   nodeSelector:
-    kubernetes.azure.com/security-type: ConfidentialVM
+    kubernetes.azure.com/agentpool: cfdnp01
   volumes:
     - name: tcg
       hostPath:
@@ -47,3 +38,5 @@ spec:
       operator: "Equal" 
       value: "true" 
       effect: "NoSchedule" 
+
+      
