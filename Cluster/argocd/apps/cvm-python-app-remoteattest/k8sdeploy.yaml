@@ -9,6 +9,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: cvm-attestation
+  namespace: azure-cvm-attest
   labels:
     app: cvm-attestation
 spec:
