@@ -23,7 +23,7 @@ spec:
       - mountPath: /dev/tpmrm0
         name: tpmrm0
     securityContext:
-      privileged: false
+      privileged: true
   nodeSelector:
     kubernetes.azure.com/agentpool: cfdnp01
   volumes:
