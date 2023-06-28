@@ -272,7 +272,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   name                  = "cfdnp01"
   kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
   vm_size               = "Standard_DC2s_v3"
-  node_count            = 1
+  node_count            = 2
   
 
 
