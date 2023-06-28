@@ -51,6 +51,11 @@ spec:
           - name: tpmrm0
             hostPath:
               path: /dev/tpmrm0
+      tolerations:
+          - key: "sgx" 
+            operator: "Equal" 
+            value: "true" 
+            effect: "NoSchedule" 
   restartPolicy: Never
 ---
 apiVersion: v1
