@@ -5,61 +5,45 @@ metadata:
 
 ---
 
-apiVersion: apps/v1
-kind: Deployment
-
+apiVersion: v1
+kind: Pod
 metadata:
-  name: azure-cvm-attest
-  namespace: azure-cvm-attest
+  name: cvm-attestation
+  labels:
+    app: cvm-attestation
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: azure-cvm-attest
-  template:
-    metadata:
-      labels:
-        app: azure-cvm-attest
-    spec:
-      affinity:
-        nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-        - matchExpressions:
-          - key: purpose
-            operator: In
-            values:
-            - sgx   
-      containers:
-      - name: azure-cvm-attest
-        image: mcr.microsoft.com/acc/samples/cvm-python-attestation:1.0
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - mountPath: /sys/kernel/security
-            name: tcg
-          - mountPath: /dev/tpmrm0
-            name: tpmrm0
-        securityContext:
-          privileged: false
-        resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
-          limits:
-            cpu: 250m
-            memory: 256Mi
-        ports:
-        - containerPort: 8081
-      volumes:
-          - name: tcg
-            hostPath:
-              path: /sys/kernel/security
-          - name: tpmrm0
-            hostPath:
-              path: /dev/tpmrm0
-      tolerations:
-          - key: "sgx" 
-            operator: "Equal" 
-            value: "true" 
-            effect: "NoSchedule" 
-      restartPolicy: Never
+  affinity:
+    nodeAffinity:
+     requiredDuringSchedulingIgnoredDuringExecution:
+     nodeSelectorTerms:
+      - matchExpressions:
+         - key: purpose
+           operator: In
+           values:
+           - sgx   
+  containers:
+  - image: mcr.microsoft.com/acc/samples/cvm-attestation:1.1
+    imagePullPolicy: IfNotPresent
+    name: cvm-attestation
+    volumeMounts:
+      - mountPath: /sys/kernel/security
+        name: tcg
+      - mountPath: /dev/tpmrm0
+        name: tpmrm0
+    securityContext:
+      privileged: true
+  nodeSelector:
+    kubernetes.azure.com/security-type: ConfidentialVM
+  volumes:
+    - name: tcg
+      hostPath:
+        path: /sys/kernel/security
+    - name: tpmrm0
+      hostPath:
+        path: /dev/tpmrm0
+  restartPolicy: Never
+  tolerations:
+    - key: "sgx" 
+      operator: "Equal" 
+      value: "true" 
+      effect: "NoSchedule" 
