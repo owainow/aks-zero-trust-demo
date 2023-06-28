@@ -21,8 +21,15 @@ spec:
       labels:
         app: azure-cvm-attest
     spec:
-      nodeSelector:
-        kubernetes.azure.com/security-type: ConfidentialVM
+      affinity:
+        nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: purpose
+            operator: In
+            values:
+            - sgx   
       containers:
       - name: azure-cvm-attest
         image: mcr.microsoft.com/acc/samples/cvm-python-attestation:1.0
