@@ -59,9 +59,9 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-namespace: azure-cvm-attest
 metadata:
   name: azure-cvm-attest
+  namespace: azure-cvm-attest
 spec:
   type: LoadBalancer
   ports:
