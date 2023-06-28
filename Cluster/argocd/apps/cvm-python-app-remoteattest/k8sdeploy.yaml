@@ -33,7 +33,7 @@ spec:
           - mountPath: /dev/tpmrm0
             name: tpmrm0
         securityContext:
-          privileged: true
+          privileged: false
         resources:
           requests:
             cpu: 100m
