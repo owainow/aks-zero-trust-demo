@@ -99,14 +99,15 @@ jobs:
         with:
           terraform_version: 1.4.5
     
-#      - name: Enable local accounts
-#        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-#        env:
-#          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-#          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-#          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-#          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-#          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+      - name: Enable local accounts
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts 
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
       
       - name: Get KubeConfig
@@ -157,9 +158,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run:  az feature register --namespace "Microsoft.ContainerService" --name "AzureServiceMeshPreview"
 
-#      - name: Pull NGINX images to Azure Container Registry
-#        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-#        run: az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/controller:v1.5.1 --image ingress-nginx-controller:latest && az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20220916-gd32f8c343 --image ingress-nginx-webhook:latest
+      - name: Pull NGINX images to Azure Container Registry
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/controller:v1.5.1 --image ingress-nginx-controller:latest && az acr import --name croowzerotrustfpbldpbu6w6bu --source registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20220916-gd32f8c343 --image ingress-nginx-webhook:latest
 
       - name: Install Helm
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -178,9 +179,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: curl -SL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 && sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd | sudo bash
 
-#      - name: Setup Cluster for Argo - Install Apply Argo Manifest 
-#        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-#        run: kubectl create namespace argocd && kubectl apply -f argocd.yaml -n argocd
+      - name: Setup Cluster for Argo - Install Apply Argo Manifest 
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: kubectl create namespace argocd && kubectl apply -f argocd.yaml -n argocd
 
       - name: Setup Cluster for Argo - Sleep  2M
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
@@ -237,9 +238,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: sleep 2m
 
-#      - name: Install Kiali for Istio
-#        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-#        run: helm repo add kiali https://kiali.org/helm-charts && helm repo update kiali && helm install --namespace kiali-operator --create-namespace kiali-operator kiali/kiali-operator
+      - name: Install Kiali for Istio
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+        run: helm repo add kiali https://kiali.org/helm-charts && helm repo update kiali && helm install --namespace kiali-operator --create-namespace kiali-operator kiali/kiali-operator
 
       # Run Terraform Init
       - name: Terraform Init for Intial Terraform Config
