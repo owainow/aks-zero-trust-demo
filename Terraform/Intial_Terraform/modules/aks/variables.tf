@@ -26,7 +26,7 @@ variable SystemPoolType {
 } 
 variable agentVMSize {
   type=string
-  default="Standard_DC4s_v2"
+  default="Stadard_DC4as_v5"
 } 
 variable nodePoolName {
   type=string
@@ -108,7 +108,7 @@ variable azurePolicyInitiative {
   default="Restricted"
 } 
 variable availabilityZones {
-  default=["1","2","3"]
+  default=["1","2"]
 } 
 variable maxPods {
   type=number
