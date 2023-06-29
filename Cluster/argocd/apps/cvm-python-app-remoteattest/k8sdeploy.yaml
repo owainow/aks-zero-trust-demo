@@ -4,35 +4,53 @@ metadata:
   name: azure-cvm-attest
 
 ---
-
-apiVersion: v1
-kind: Pod
+      
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: cvm-attestation
+  name: azure-cvm-attest
   namespace: azure-cvm-attest
-  labels:
-    app: cvm-attestation
 spec:
-  containers:
-  - image: mcr.microsoft.com/acc/samples/cvm-attestation:1.1
-    imagePullPolicy: IfNotPresent
-    name: cvm-attestation
-    volumeMounts:
-      - mountPath: /sys/kernel/security
-        name: tcg
-      - mountPath: /dev/tpmrm0
-        name: tpmrm0
-    securityContext:
-      privileged: true
   nodeSelector:
     kubernetes.azure.com/agentpool: cfdnp01
-  volumes:
-    - name: tcg
-      hostPath:
-        path: /sys/kernel/security
-    - name: tpmrm0
-      hostPath:
-        path: /dev/tpmrm0
+  replicas: 1
+  selector:
+    matchLabels:
+      app: azure-cvm-attest
+  template:
+    metadata:
+      labels:
+        app: azure-cvm-attest
+    spec:
+      nodeSelector:
+            kubernetes.azure.com/agentpool: cfdnp01
+      containers:
+      - name: azure-cvm-attest
+        image: mcr.microsoft.com/acc/samples/cvm-python-attestation:1.0
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - mountPath: /sys/kernel/security
+            name: tcg
+          - mountPath: /dev/tpmrm0
+            name: tpmrm0
+        securityContext:
+          privileged: true
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 8081
+      volumes:
+          - name: tcg
+            hostPath:
+              path: /sys/kernel/security
+          - name: tpmrm0
+            hostPath:
+              path: /dev/tpmrm0
   restartPolicy: Never
   tolerations:
     - key: "sgx" 
@@ -40,4 +58,14 @@ spec:
       value: "true" 
       effect: "NoSchedule" 
 
-      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: azure-cvm-attest
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8081
+  selector:
+    app: azure-cvm-attest
