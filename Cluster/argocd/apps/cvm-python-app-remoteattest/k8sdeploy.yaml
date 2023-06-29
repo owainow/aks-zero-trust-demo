@@ -22,8 +22,6 @@ spec:
       labels:
         app: azure-cvm-attest
     spec:
-      nodeSelector:
-            kubernetes.azure.com/agentpool: cfdnp01
       containers:
       - name: azure-cvm-attest
         image: mcr.microsoft.com/acc/samples/cvm-python-attestation:1.0
@@ -51,12 +49,13 @@ spec:
           - name: tpmrm0
             hostPath:
               path: /dev/tpmrm0
-  restartPolicy: Never
-  tolerations:
-    - key: "sgx" 
-      operator: "Equal" 
-      value: "true" 
-      effect: "NoSchedule" 
+      restartPolicy: Never
+      tolerations:
+        - key: "sgx" 
+          operator: "Equal" 
+          value: "true" 
+          effect: "NoSchedule"
+ 
 
 ---
 apiVersion: v1
