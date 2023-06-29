@@ -28,7 +28,7 @@ jobs:
       
      # Install required packages
       - name: Install required packages.
-        run: apt-get update && apt-get install unzip -y && apt-get install python3 -y && apt-get install -y gettext-base && apt-get install sudo -y && sudo apt-get install npm -y && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && az aks install-cli | sudo bash
+        run: apt-get update && apt-get install unzip -y && apt-get install python3 -y &&  sudo apt-get install jq &&apt-get install -y gettext-base && apt-get install sudo -y && sudo apt-get install npm -y && curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash && az aks install-cli | sudo bash
       
       - name: Generate github repo url 
         run: |
