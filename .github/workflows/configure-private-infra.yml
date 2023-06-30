@@ -99,15 +99,9 @@ jobs:
         with:
           terraform_version: 1.4.5
     
-      - name: Enable local accounts
-        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
-        env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
-        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts 
+#      - name: Enable local accounts
+#        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
+#        run: az aks update -g oow-aks-zero-trust-demo -n aks-oow-zerotrust --enable-local-accounts 
       # Will use cluster name & RG output instead of hard coded name  here when running full workflow
       
       - name: Get KubeConfig
