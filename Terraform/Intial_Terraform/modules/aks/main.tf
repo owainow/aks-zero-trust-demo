@@ -246,6 +246,31 @@ data "azurerm_firewall_policy" "aks-egress-policy" {
   }
 }
 
+resource "azurerm_firewall_application_rule_collection" "aks-egress-firewall-app-rule-collection" {
+  depends_on = [ data.azurerm_firewall.aks-egress-firewall ]
+  name                = "afw-${var.resourceName}-tf-app-rule-collection-group"
+  azure_firewall_name = data.azurerm_firewall_policy.aks-egress-policy.name
+  resource_group_name = var.resourceGroupName
+  priority = 100
+ 
+  rule {
+    name = "attestion-egress-rule"
+
+    source_addresses = [
+      "10.240.0.0/22"
+    ]
+
+    target_fqdns = [
+      "*.attest.azure.net"
+    ]
+
+    protocol {
+      port = "443"
+      type = "Https"
+    }
+  }
+}
+
 # Wait for 5 minutes before creating node pool to ensure that the cluster is ready
 #resource "time_sleep" "wait_5_Minutes" {
 #  depends_on = [azurerm_resource_group_template_deployment.aksc_deploy]
