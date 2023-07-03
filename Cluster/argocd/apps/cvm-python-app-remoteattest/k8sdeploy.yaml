@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: azure-cvm-attest
-        image: croowzerotrustfpbldpbu6w6bu.azurecr.io/attest-init:latest
+        image: croowzerotrustfpbldpbu6w6bu.azurecr.io/attest-init:v1
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - mountPath: /sys/kernel/security
