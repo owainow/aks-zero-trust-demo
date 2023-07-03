@@ -19,6 +19,8 @@ RUN apt-get -y install cmake make
 
 RUN apt-get -y install curl
 
+RUN apt-get -y install jq
+
 RUN curl -o azguestattestation1_1.0.2_amd64.deb "https://packages.microsoft.com/repos/azurecore/pool/main/a/azguestattestation1/azguestattestation1_1.0.2_amd64.deb"
 
 RUN dpkg -i azguestattestation1_1.0.2_amd64.deb

@@ -37,8 +37,8 @@ spec:
           - key: "sgx" 
             operator: "Equal" 
             value: "true" 
-            effect: "NoSchedule" 
-          
+            effect: "NoSchedule"
+
 
 ---
 ---
