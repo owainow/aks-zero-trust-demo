@@ -52,16 +52,6 @@ spec:
           operator: "Equal" 
           value: "true" 
           effect: "NoSchedule"
-#      affinity:
-#        nodeAffinity:
-#          requiredDuringSchedulingIgnoredDuringExecution:
-#            nodeSelectorTerms:
-#              - matchExpressions:
-#                - key: purpose
-#                  operator: In
-#                  values:
-#                  - sgx 
- 
 
 ---
 apiVersion: v1
