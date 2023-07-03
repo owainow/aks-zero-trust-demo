@@ -160,6 +160,10 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: az acr import --name croowzerotrustfpbldpbu6w6bu --source quay.io/argoproj/argocd:latest --image argocd:latest 
 
+      - name: Build and push Attestion image to Azure Container Registry
+        working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Cluster/argocd/apps/cvm-python-app-remoteattest
+        run: az acr build --registry croowzerotrustfpbldpbu6w6bu --image attest-init:v1 . --agent-pool private-pool
+
       - name: Install Helm
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && ./get_helm.sh
