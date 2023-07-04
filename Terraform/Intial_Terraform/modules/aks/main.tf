@@ -252,6 +252,7 @@ resource "azurerm_firewall_application_rule_collection" "aks-egress-firewall-app
   azure_firewall_name = data.azurerm_firewall_policy.aks-egress-policy.name
   resource_group_name = var.resourceGroupName
   priority = 100
+  action = "Allow"
  
   rule {
     name = "attestion-egress-rule"
