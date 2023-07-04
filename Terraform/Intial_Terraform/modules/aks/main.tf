@@ -246,7 +246,7 @@ data "azurerm_firewall_policy" "aks-egress-policy" {
   }
   application_rule_collection {
     name     = "app_rule_collection"
-    priority = 100
+    priority = 200
     action   = "Allow"
     rule {
       name = "app_rule_collection_rule1"
