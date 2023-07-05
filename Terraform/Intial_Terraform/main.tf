@@ -56,8 +56,17 @@ module "key_vault" {
 
 }
 
+module "azure_ad" {
+  source = "./modules/azuread"
+
+  resourceGroupName = azurerm_resource_group.rg.name
+
+}
+
+
+
 module "aks" {
-  depends_on = [module.key_vault]
+  depends_on = [module.key_vault, module.azure_ad]
   source = "./modules/aks"
 
   key_vault_name = module.key_vault.key_vault_name
@@ -74,6 +83,7 @@ module "aci" {
   resourceGroupName = azurerm_resource_group.rg.name
   aks_private_dns = module.aks.aksPrivateDnsZone
 }
+
 
 
 
