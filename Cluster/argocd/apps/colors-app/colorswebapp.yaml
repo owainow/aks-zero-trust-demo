@@ -39,8 +39,6 @@ spec:
             value: "true" 
             effect: "NoSchedule"
 
-
----
 ---
 apiVersion: v1
 kind: Service
