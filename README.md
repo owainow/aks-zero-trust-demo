@@ -31,6 +31,7 @@ A repository containing the files to setup and configure an AKS Zero Trust Demo
 | `Confidential Compute`         | Use confidential compute and software attestation to deploy to trusted execution enviroments. |
 | `Calico Network Policies`         | Use confidential compute and software attestation to deploy to trusted execution enviroments. |
 | `Workload Identity`       | Use workload identity to restrict access to Azure resources. |
+| `ETCD Encryption`       | ETCD Encryption with customer managed key in Azure Key Vault |
 
 ## Roadmap
 
