@@ -59,6 +59,8 @@ kind: Service
 metadata:
   name: azure-cvm-attest
   namespace: azure-cvm-attest
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
   ports:

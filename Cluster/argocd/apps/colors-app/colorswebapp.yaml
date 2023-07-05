@@ -47,6 +47,8 @@ kind: Service
 metadata:
   name: colors-web-clusterip-srv
   namespace: colors-web
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: ClusterIP
   selector:
