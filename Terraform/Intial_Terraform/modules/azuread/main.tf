@@ -1,12 +1,12 @@
 data "azurerm_client_config" "current" {}
 
 
-# NEED TO GET EMAIL DOMAIN FOR USER PRINCIPLE DYNAMICALLY PROBABLY FROM AZURE_RM CLIENT CONFIG
+
 resource "azuread_user" "demo_user" {
   display_name        = "Owain Osborne-Walsh"
   owners              = [data.azuread_client_config.current.object_id]
   password            = "AKSdemo123"
-  user_principal_name = "oow@contoso.com"
+  user_principal_name = "oow@${var.azure_domain}"
 }
 
 resource "azuread_group" "demo_aks_jit_group" {
@@ -14,5 +14,4 @@ resource "azuread_group" "demo_aks_jit_group" {
   display_name     = "oow-aks-jit-azure-cvm-attestation-ns"
   owners           = [data.azuread_client_config.current.object_id]
   security_enabled = true
-
 }
