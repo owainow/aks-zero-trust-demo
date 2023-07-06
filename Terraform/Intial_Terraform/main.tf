@@ -59,7 +59,7 @@ module "key_vault" {
 
 
 module "aks" {
-  depends_on = [module.key_vault, module.azure_ad]
+  depends_on = [module.key_vault]
   source = "./modules/aks"
 
   key_vault_name = module.key_vault.key_vault_name
