@@ -1315,7 +1315,8 @@
               "kube-system",
               "gatekeeper-system",
               "azure-arc",
-              "cluster-baseline-setting"
+              "cluster-baseline-setting",
+              "azure-cvm-attest"
             ]
           },
           "effect": {
