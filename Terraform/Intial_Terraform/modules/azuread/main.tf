@@ -4,7 +4,6 @@ data "azurerm_client_config" "current" {}
 
 resource "azuread_user" "demo_user" {
   display_name        = "Owain Osborne-Walsh"
-  owners              = [data.azuread_client_config.current.object_id]
   password            = "AKSdemo123"
   user_principal_name = "oow@${var.azure_domain}"
 }
