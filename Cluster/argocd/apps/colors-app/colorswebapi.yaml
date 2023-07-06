@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   labels:
     app.kubernetes.io/name: colors
-    istio-injection: enabled
+    istio.io/rev: asm-1-17
   name: colors-api
 ---
 apiVersion: apps/v1

@@ -4,7 +4,7 @@ metadata:
   labels:
     app.kubernetes.io/name: colors
     app: colors-web
-    istio-injection: enabled
+    istio.io/rev: asm-1-17
   name: colors-web
 ---
 apiVersion: apps/v1
