@@ -59,8 +59,6 @@ module "key_vault" {
 module "azure_ad" {
   source = "./modules/azuread"
 
-  resourceGroupName = azurerm_resource_group.rg.name
-
 }
 
 
