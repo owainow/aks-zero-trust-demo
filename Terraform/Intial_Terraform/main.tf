@@ -56,11 +56,6 @@ module "key_vault" {
 
 }
 
-module "azure_ad" {
-  source = "./modules/azuread"
-
-}
-
 
 
 module "aks" {
