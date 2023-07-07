@@ -1316,7 +1316,9 @@
               "gatekeeper-system",
               "azure-arc",
               "cluster-baseline-setting",
-              "azure-cvm-attest"
+              "azure-cvm-attest",
+              "colors-api",
+              "colors-web"
             ]
           },
           "effect": {
