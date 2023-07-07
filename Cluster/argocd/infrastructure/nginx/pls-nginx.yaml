@@ -422,6 +422,7 @@ metadata:
     app.kubernetes.io/version: 1.5.1
   name: ingress-nginx-controller
   namespace: ingress-nginx
+spec:
   minReadySeconds: 0
   revisionHistoryLimit: 10
   selector:
