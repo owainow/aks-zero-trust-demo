@@ -26,6 +26,8 @@ spec:
        - name: colors-web-image
          image: ghcr.io/markharrison/colorsweb:latest
          imagePullPolicy: Always
+         securityContext:
+          privileged: false
          resources:
           requests:
             memory: "128Mi"
