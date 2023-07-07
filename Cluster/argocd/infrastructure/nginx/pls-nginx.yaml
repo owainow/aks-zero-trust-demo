@@ -448,7 +448,7 @@ spec:
         - --validating-webhook=:8443
         - --validating-webhook-certificate=/usr/local/certificates/cert
         - --validating-webhook-key=/usr/local/certificates/key
-        - --default-ssl-certificate=platforms/test-tls
+        - --default-ssl-certificate=colors-web/test-tls
         env:
         - name: POD_NAME
           valueFrom:
