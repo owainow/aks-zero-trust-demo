@@ -288,7 +288,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "np2" {
   depends_on = [ azurerm_resource_group_template_deployment.aksc_deploy ]
   name                  = "cfdnp01"
   kubernetes_cluster_id = local.arm_outputs.aksResourceId.value
-  vm_size               = "Standard_DC2s_v3"
+  vm_size               = "Standard_DC4as_v5"
   node_count            = 2
   
 

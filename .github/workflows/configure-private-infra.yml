@@ -120,6 +120,9 @@ jobs:
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: az aks nodepool update --resource-group oow-aks-zero-trust-demo --cluster-name aks-oow-zerotrust --name sgxnp01 --node-taints sgx=true:NoSchedule --labels purpose=sqx
 
+      - name: Setup confidential compute label
+        run: az aks nodepool update --resource-group oow-aks-zero-trust-demo --cluster-name aks-oow-zerotrust --name cfdnp01 --labels node=confidential --no-wait
+
       - name: Setup Cluster for GitOps - Register Extension manager
         working-directory: /actions-runner/_work/aks-zero-trust-demo/aks-zero-trust-demo/Terraform/Config_Terraform
         run: az feature register --namespace Microsoft.ContainerService --name AKS-ExtensionManager
