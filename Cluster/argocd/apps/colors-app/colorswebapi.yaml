@@ -35,11 +35,8 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "1"
-      tolerations:
-          - key: "sgx" 
-            operator: "Equal" 
-            value: "true" 
-            effect: "NoSchedule" 
+      nodeSelector:
+        node: confidential
 
           
 ---
