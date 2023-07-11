@@ -5,4 +5,4 @@ metadata:
   namespace: ingress-nginx
 spec:
   mtls:
-    mode: STRICT
+    mode: PERMISSIVE

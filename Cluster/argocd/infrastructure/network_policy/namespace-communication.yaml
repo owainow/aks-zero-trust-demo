@@ -6,7 +6,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      color: blue
+      color: colors-api
   ingress:
      - from:
         -  namespaceSelector:
