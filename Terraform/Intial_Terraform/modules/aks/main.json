@@ -1318,7 +1318,8 @@
               "cluster-baseline-setting",
               "azure-cvm-attest",
               "colors-api",
-              "colors-web"
+              "colors-web",
+              "ingress-nginx"
             ]
           },
           "effect": {
