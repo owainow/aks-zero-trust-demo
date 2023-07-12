@@ -1,17 +1,17 @@
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
-  name: allow-same-namespace
+  name: allow-colors-web
   namespace: colors-api
 spec:
   podSelector:
     matchLabels:
-      color: colors-api
+      app: colors-api-service
   ingress:
      - from:
         -  namespaceSelector:
             matchLabels:
-              app: colors-web
+              app: colors-web-service
         - namespaceSelector:
             matchLabels:
               app.kubernetes.io/name: ingress-nginx
